@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Império Shopping Car</title>
+    <link rel="icon" href="src/logoB.png" type="image/png">
+    <meta name="description" content="Elegância, força e modernidade em acessórios automotivos. Calotas, para-choques, faróis, volantes e mais para o seu carro.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dourado': '#D4AF37',
+                        'dourado-hover': '#EACD69',
+                        'cinza-escuro': '#1A1A1A',
+                        'cinza-texto': '#A9A9A9',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dourado': '#D4AF37',
+                        'dourado-hover': '#EACD69',
+                        'cinza-escuro': '#1A1A1A',
+                        'cinza-texto': '#A9A9A9',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    },
+                    // --- AQUI ESTÁ A MÁGICA DA ANIMAÇÃO ---
+                    animation: {
+                        // 40s é a velocidade (quanto maior, mais lento)
+                        scroll: 'scroll 40s linear infinite',
+                    },
+                    keyframes: {
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' }, // Move metade (pois duplicamos o conteúdo)
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilos do visualizador de calotas e outros elementos */
+        #hubcap-carousel {
+            scrollbar-width: thin;
+            scrollbar-color: #D4AF37 #1A1A1A;
+        }
+        #hubcap-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+        #hubcap-carousel::-webkit-scrollbar-track {
+            background: #1A1A1A;
+            border-radius: 10px;
+        }
+        #hubcap-carousel::-webkit-scrollbar-thumb {
+            background-color: #D4AF37;
+            border-radius: 10px;
+        }
+        .carousel-item {
+            transition: all 0.2s ease-in-out;
+            border: 3px solid transparent;
+        }
+        /* Localize e substitua por este bloco */
+        /* 1. Ajuste do item ativo */
+        .carousel-item.active {
+            transform: scale(1.08); /* Removi o translateY para evitar o corte no topo */
+            border: 3px solid #D4AF37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            z-index: 10;
+            position: relative;
+        }
+
+        /* 2. MUITO IMPORTANTE: Garante que o carrossel tenha espaço para o brilho */
+        #hubcap-carousel {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            overflow-x: auto;
+            overflow-y: visible; /* Permite que o brilho apareça em cima e embaixo */
+            padding-top: 20px !important; /* Espaço extra no topo */
+            padding-bottom: 20px !important; /* Espaço extra na base */
+            scrollbar-width: thin;
+        }
+        #hubcap-image {
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease-in-out;
+        }
+        /* O CSS da animação de zoom foi removido daqui. */
+    </style>
+
+<body class="bg-black text-white font-poppins">
+
+    <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 md:px-6 py-3 grid grid-cols-3 items-center">
+            
+            <div class="justify-self-start">
+                 <button id="menu-btn" class="focus:outline-none p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dourado" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    </svg>
+                </button>
+            </div>
+
+            <div class="justify-self-center">
+                 <a href="#">
+                    <img src="src/logo.png" alt="Império Shopping Car Logo" class="h-10 lg:h-12 w-auto object-contain" onerror="this.onerror=null;this.src='https://placehold.co/200x50/1A1A1A/D4AF37?text=Sua+Logo';">
+                </a>
+            </div>
+
+            <div class="justify-self-end hidden md:block">
+                <a href="#contato" class="bg-dourado text-black font-bold py-2 px-3 lg:px-5 rounded-lg hover:bg-dourado-hover transition-transform duration-300 hover:scale-105 text-xs lg:text-sm whitespace-nowrap">
+                    Fale Conosco
+                </a>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-cinza-escuro/95 backdrop-blur-sm shadow-lg">
+            <div class="container mx-auto flex flex-col items-center py-6 space-y-5">
+                <a href="#sobre" class="text-cinza-texto hover:text-dourado transition-colors text-lg">Sobre Nós</a>
+                <a href="#personalizador" class="text-cinza-texto hover:text-dourado transition-colors text-lg">Personalizador</a>
+                <a href="#categorias" class="text-cinza-texto hover:text-dourado transition-colors text-lg">Produtos</a>
+                <a href="#avaliacoes" class="text-cinza-texto hover:text-dourado transition-colors text-lg">Avaliações</a>
+                <a href="#contato" class="text-cinza-texto hover:text-dourado transition-colors text-lg">Contato</a>
+                <a href="#contato" class="md:hidden w-full max-w-xs text-center bg-dourado text-black font-bold py-3 rounded-lg hover:bg-dourado-hover transition-transform duration-300">
+                    Fale Conosco
+                </a>
+            </div>
+        </div>
+    </header>
+
+    
+       <main>
+         
+        
+          <section id="hero" class="relative text-white min-h-screen flex items-center overflow-hidden">
+    
+            <div class="absolute inset-0 z-0 bg-cover bg-center scale-100" style="background-image: url('src/fundo2.png');"></div>
+            <div class="absolute inset-0 bg-black/40 z-10"></div>
+
+            <div class="container mx-auto px-6 relative z-20 grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-4 pt-32 pb-20 lg:pt-20 lg:pb-0">
+                
+                <div class="text-center lg:text-left flex flex-col items-center lg:items-start z-30">
+                    <div class="inline-flex flex-col items-center lg:items-start animate-fade-in-down" style="animation-delay: 0.2s;">
+                        <img src="src/logo.png" alt="Logo" class="h-16 lg:h-16 w-auto mb-2">
+                        <p class="font-semibold text-white tracking-wide text-sm [text-shadow:0_0_10px_rgba(212,175,55,0.8)]">
+                            O Shopping Do Seu Carro
+                        </p>
+                    </div>
+
+                    <h1 class="text-3xl md:text-4xl lg:text-4xl xl:text-5xl font-bold text-dourado leading-tight mt-4 mb-4 animate-fade-in-down" style="animation-delay: 0.4s;">
+                        Design Imponente, <br class="hidden lg:block"> Performance Absoluta.
+                    </h1>
+
+                    <p class="text-sm md:text-base text-cinza-texto max-w-lg mb-6 mx-auto lg:mx-0 animate-fade-in-down" style="animation-delay: 0.6s;">
+                        Descubra nossa seleção exclusiva de acessórios e peças que elevam sua experiência ao dirigir!
+                    </p>
+
+                    <div class="animate-fade-in-up" style="animation-delay: 0.8s;">
+                        <a href="#categorias" class="bg-dourado text-black font-bold py-3 px-6 rounded-lg hover:bg-dourado-hover transition-transform duration-300 hover:scale-105 inline-block shadow-lg shadow-dourado/20 text-sm">
+                            Explorar Produtos
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-center animate-fade-in-up lg:col-start-2 lg:row-span-2" style="animation-delay: 0.5s;">
+                    <img 
+                        src="src/banner.png" 
+                        alt="Conjunto de roda" 
+                        class="w-full max-w-xs md:max-w-sm lg:max-w-md mx-auto rounded-2xl border-2 border-white/30 shadow-[0_0_40px_rgba(255,255,255,0.25)]" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/800x600/1A1A1A/FFFFFF?text=Imagem+N%C3%A3o+Encontrada';"
+                    >
+                </div>
+            </div>
+        </section>
+
+      <!-- SEÇÃO SOBRE NÓS ATUALIZADA -->
+        <section id="sobre" class="py-20 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold">Nossa Trajetória: Uma História de <span class="text-dourado">Paixão e Performance</span></h2>
+                    <p class="text-cinza-texto mt-2 max-w-3xl mx-auto">Mais do que uma loja, somos o ponto de encontro para apaixonados por carros que buscam exclusividade e qualidade. A Império Shopping Car nasceu com um propósito simples: transformar a experiência de quem ama carros. </p>
+                </div>
+                
+                <div class="relative">
+                    <div class="absolute left-1/2 h-full w-0.5 bg-dourado/30 hidden md:block" style="transform: translateX(-1px);"></div>
+                    
+                    <div class="space-y-16">
+                        
+                        <div class="relative md:grid md:grid-cols-2 md:gap-12 items-center">
+                            <div class="md:text-right md:pr-12">
+                                <div class="bg-cinza-escuro/50 backdrop-blur-sm border border-dourado/20 p-8 rounded-2xl">
+                                    <div class="inline-block bg-dourado text-black rounded-full p-3 mb-4">
+                                        <img src="src/icones/carro.png" alt="Ícone de Carro" class="w-8 h-8">
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white mb-2">Nossa História</h3>
+                                    <p class="text-cinza-texto">A história da Império Shopping Car começa muito antes da sua entrada oficial no mercado.
+
+Começa na juventude do nosso idealizador, fundador e primeiro investidor — um apaixonado por carros desde cedo. Ainda jovem, ele aguardava ansiosamente cada nova edição das revistas automotivas. Publicações como as que cobriam o Salão do Automóvel, lançamentos e comparativos de versões eram leitura obrigatória.
+
+Sempre que saía uma nova edição, ele corria para garantir a sua.
+
+Não era apenas curiosidade. Era aprendizado. Ele comparava versões, analisava mudanças entre modelos, estudava o mercado automobilístico e imaginava o que o futuro lhe reservava. Qual seria o próximo lançamento? Qual carro marcaria uma geração? E principalmente: qual seria o seu?
+Mas o verdadeiro marco da Império nasceu anos depois.</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-dourado rounded-full border-4 border-black"></div>
+                            <div class="mt-8 md:mt-0"></div>
+                        </div>
+
+                        <div class="relative md:grid md:grid-cols-2 md:gap-12 items-center">
+                            <div class="mt-8 md:mt-0 md:order-2 md:text-left md:pl-12">
+                                <div class="bg-cinza-escuro/50 backdrop-blur-sm border border-dourado/20 p-8 rounded-2xl">
+                                    <div class="inline-block bg-dourado text-black rounded-full p-3 mb-4">
+                                        <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></svg>
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white mb-2">Ínicio de um Sonho</h3>
+                                    <p class="text-cinza-texto">Após construir uma trajetória sólida no mercado automotivo, acumulando experiência, conhecimento técnico e vivência prática, veio um momento inesperado: o desemprego.
+
+Para muitos, seria o fim de um ciclo.
+
+Para ele, foi o início de um sonho.
+
+Movido pela paixão que carregava desde jovem e pela determinação de um trabalhador experiente, decidiu transformar dificuldade em oportunidade. Assim nasceu, há 8 anos, a primeira unidade da Império Shopping Car, na cidade de Águas Lindas de Goiás.
+
+Mais do que abrir uma loja, ele abriu portas para a cidade — trazendo variedade, qualidade e facilidade no acesso aos melhores acessórios automotivos da região.</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-dourado rounded-full border-4 border-black"></div>
+                            <div class="mt-8 md:mt-0 md:order-1"></div>
+                        </div>
+
+                        <div class="relative md:grid md:grid-cols-2 md:gap-12 items-center">
+                            <div class="md:text-right md:pr-12">
+                                <div class="bg-cinza-escuro/50 backdrop-blur-sm border border-dourado/20 p-8 rounded-2xl">
+                                    <div class="inline-block bg-dourado text-black rounded-full p-3 mb-4">
+                                        <img src="src/icones/icone.png" alt="Ícone de Carro" class="w-8 h-8">
+                                    </div>
+                                    <h3 class="text-2xl font-bold text-white mb-2">Referência no Mercado</h3>
+                                    <p class="text-cinza-texto">O que começou com coragem e dedicação rapidamente conquistou confiança.
+
+E impulsionados pelo desejo de levar cada vez mais nossa variedade, qualidade e atendimento diferenciado a novos clientes, expandimos nossa atuação com mais duas unidades: uma no Gama, no Distrito Federal, e outra em Santo Antônio do Descoberto.
+
+Hoje, a Império Shopping Car é resultado de paixão, superação e visão de futuro.
+
+E seguimos acelerando.
+
+Porque para nós, o carro não é apenas um veículo.
+
+É conquista.
+É identidade.
+É sonho realizado.
+
+E nossa história prova que sonhos movidos por paixão podem, sim, virar realidade.</p>
+                                </div>
+                            </div>
+                            <div class="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-dourado rounded-full border-4 border-black"></div>
+                            <div class="mt-8 md:mt-0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+ <!-- SEÇÃO DO PERSONALIZADOR ATUALIZADA COM IMAGENS REAIS -->
+    <section id="personalizador" class="py-10 xl:py-20 bg-black"> <div class="container mx-auto px-6">
+                
+                <div class="text-center mb-6 xl:mb-12">
+                    <h2 class="text-2xl lg:text-3xl xl:text-4xl font-bold">Personalize sua <span class="text-dourado">Roda</span></h2>
+                    <p class="text-cinza-texto mt-2 max-w-2xl mx-auto text-xs lg:text-sm xl:text-base">Veja como as nossas calotas exclusivas transformam o visual.</p>
+                </div>
+
+                <div class="w-full max-w-4xl xl:max-w-6xl flex flex-col lg:flex-row items-center justify-center mx-auto gap-8 xl:gap-16">
+                    
+                    <div class="relative w-full max-w-[260px] lg:max-w-xs xl:max-w-md mx-auto lg:mx-0 flex-shrink-0 transition-all duration-300">
+                        
+                        <button id="prev-hubcap" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-8 xl:-translate-x-12 z-30 p-2 text-dourado hover:text-white transition-transform hover:scale-125 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 xl:h-12 xl:w-12 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                        </button>
+
+                        <div id="main-wheel-container" class="grid place-items-center w-full aspect-square p-2">
+                            <img src="src/pneu.png" alt="Pneu" class="w-full h-full object-contain col-start-1 row-start-1">
+                            <img id="hubcap-image" src="" alt="Calota" class="w-[68%] h-[68%] object-contain opacity-0 col-start-1 row-start-1 transition-all duration-300">
+                        </div>
+
+                        <button id="next-hubcap" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-8 xl:translate-x-12 z-30 p-2 text-dourado hover:text-white transition-transform hover:scale-125 focus:outline-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 xl:h-12 xl:w-12 drop-shadow-[0_2px_2px_rgba(0,0,0,0.8)]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-col items-center lg:items-start w-full max-w-md xl:max-w-lg transition-all duration-300">
+                        
+                        <div id="info-calota" class="text-center lg:text-left mb-2 xl:mb-6 min-h-[50px] xl:min-h-[80px] flex flex-col justify-center w-full">
+                             <h3 id="nome-calota" class="text-xl xl:text-3xl font-bold text-white transition-opacity duration-500 opacity-0">Escolha um modelo</h3>
+                             <p id="preco-calota" class="text-lg xl:text-2xl text-dourado transition-opacity duration-500 opacity-0 whitespace-pre-line leading-relaxed"></p>
+                        </div>
+
+                        <a id="btn-orcamento" href="#" target="_blank" class="bg-dourado text-black font-bold py-2 px-6 xl:py-3 xl:px-8 rounded-lg hover:bg-dourado-hover transition-all duration-300 hover:scale-105 w-full text-center opacity-0 pointer-events-none mb-4 xl:mb-8 uppercase text-xs xl:text-sm font-bold tracking-wide">Consulte Disponibilidade</a>
+
+                        <div class="w-full bg-cinza-escuro p-2 xl:p-4 rounded-xl shadow-lg border border-white/5">
+                            <h2 class="text-[10px] xl:text-sm font-semibold text-center lg:text-left mb-2 xl:mb-4 text-cinza-texto uppercase tracking-wider">Modelos Disponíveis</h2>
+                            <div id="hubcap-carousel" class="flex gap-2 xl:gap-3 overflow-x-auto pb-1 xl:pb-2" style="scrollbar-width: thin;">
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+ <!-- SEÇÃO DE CATEGORIAS ATUALIZADA -->
+       <section id="categorias" class="py-20 bg-black">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-12">Nossas <span class="text-dourado">Categorias</span></h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+
+            <a href="acessorios.html?cat=iluminacao" class="bg-cinza-escuro p-6 rounded-lg flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300 group hover:bg-dourado">
+                <img src="src/icones/iluminacao.png" alt="Iluminação" class="w-16 h-16 mb-4 filter group-hover:grayscale group-hover:brightness-0 transition-all duration-300">
+                <h3 class="font-semibold text-lg text-white group-hover:text-black transition-colors">Iluminação</h3>
+            </a>
+
+            <a href="acessorios.html?cat=lataria" class="bg-cinza-escuro p-6 rounded-lg flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300 group hover:bg-dourado">
+                <img src="src/icones/lataria.png" alt="Lataria" class="w-16 h-16 mb-4 filter group-hover:grayscale group-hover:brightness-0 transition-all duration-300">
+                <h3 class="font-semibold text-lg text-white group-hover:text-black transition-colors">Lataria</h3>
+            </a>
+
+            <a href="acessorios.html?cat=acessorios" class="bg-cinza-escuro p-6 rounded-lg flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300 group hover:bg-dourado">
+                <img src="src/icones/retrovisor.png" alt="Acessórios" class="w-16 h-16 mb-4 filter group-hover:grayscale group-hover:brightness-0 transition-all duration-300">
+                <h3 class="font-semibold text-lg text-white group-hover:text-black transition-colors">Acessórios</h3>
+            </a>
+
+            <a href="acessorios.html?cat=grades" class="bg-cinza-escuro p-6 rounded-lg flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300 group hover:bg-dourado">
+                 <img src="src/icones/parachoque.png" alt="Grades" class="w-17 h-16 mb-4 filter group-hover:grayscale group-hover:brightness-0 transition-all duration-300">
+                <h3 class="font-semibold text-lg text-white group-hover:text-black transition-colors">Para-choques e Grades</h3>
+            </a>
+
+            <a href="acessorios.html?cat=shopping" class="bg-cinza-escuro p-6 rounded-lg flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300 group hover:bg-dourado">
+                 <img src="src/icones/shopping.png" alt="Shopping" class="w-16 h-16 mb-4 filter group-hover:grayscale group-hover:brightness-0 transition-all duration-300">
+                <h3 class="font-semibold text-lg text-white group-hover:text-black transition-colors">Shopping</h3>
+            </a>
+
+            <div class="relative">
+                <span class="absolute -top-2 left-1/2 -translate-x-1/2 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full animate-pulse z-10">NOVIDADE</span>
+                <a href="acessorios.html?cat=mecanica" class="bg-cinza-escuro p-6 rounded-lg flex flex-col items-center justify-center transform hover:-translate-y-2 transition-transform duration-300 group hover:bg-dourado h-full">
+                    <img src="src/icones/mecanico.png" alt="Mecânica" class="w-14 h-14 mb-4 filter group-hover:grayscale group-hover:brightness-0 transition-all duration-300">
+                    <h3 class="font-semibold text-lg text-white group-hover:text-black transition-colors">Mecânica</h3>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+     <section id="destaques" class="py-20 bg-black">
+    <div class="container mx-auto px-6">
+
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-white">
+            Mais <span class="text-dourado">Vendidos</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- CARD 1 -->
+            <div class="bg-cinza-escuro rounded-xl overflow-hidden shadow-lg flex flex-col h-full text-left group border border-transparent hover:border-dourado hover:-translate-y-2 transition-all duration-300">
+                
+                <div class="h-64 bg-white flex items-center justify-center p-4 overflow-hidden">
+                    <img src="src/fundoNovo/farolCorsa00emdianteLenteLisaCromado.png"
+                        alt="Farol Corsa 00+ Lente Lisa Cromado"
+                        class="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105">
+                </div>
+
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold mb-3 text-white">
+                        Farol Corsa 2000/ em diante
+                    </h3>
+                    <p class="text-cinza-texto text-sm mb-6 flex-grow">
+                        Design moderno com acabamento cromado e modelo lente lisa.
+                    </p>
+                    <a href="acessorios.html?cat=iluminacao"
+                        class="mt-auto inline-block text-center bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-all duration-300">
+                        Ver Mais
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 2 -->
+            <div class="bg-cinza-escuro rounded-xl overflow-hidden shadow-lg flex flex-col h-full text-left group border border-transparent hover:border-dourado hover:-translate-y-2 transition-all duration-300">
+                
+                <div class="h-64 bg-white flex items-center justify-center p-4 overflow-hidden">
+                    <img src="src/fundoNovo/paralamaOnix.png"
+                        alt="Paralama Onix"
+                        class="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105">
+                </div>
+
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold mb-3 text-white">
+                        Paralama Onix Active
+                    </h3>
+                    <p class="text-cinza-texto text-sm mb-6 flex-grow">
+                        Peça resistente para reposição da marca Ponteira Rodrigues.
+                    </p>
+                    <a href="acessorios.html?cat=lataria"
+                        class="mt-auto inline-block text-center bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-all duration-300">
+                        Ver Mais
+                    </a>
+                </div>
+            </div>
+
+            <!-- CARD 3 (COM SETAS) -->
+            <div class="bg-cinza-escuro rounded-xl overflow-hidden shadow-lg flex flex-col h-full text-left group border border-transparent hover:border-dourado hover:-translate-y-2 transition-all duration-300">
+                
+                <div class="relative h-64 bg-white flex items-center justify-center p-4 overflow-hidden">
+
+                    <img id="card3Img"
+                        src="src/fundoNovo/superled1.png"
+                        alt="Kit Super LED"
+                        class="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105">
+
+                    <!-- Seta Esquerda -->
+                    <button onclick="trocarImagemCard3(-1)"
+                        class="absolute left-3 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition">
+                        ❮
+                    </button>
+
+                    <!-- Seta Direita -->
+                    <button onclick="trocarImagemCard3(1)"
+                        class="absolute right-3 bg-black/50 hover:bg-black/70 text-white w-8 h-8 rounded-full flex items-center justify-center transition">
+                        ❯
+                    </button>
+
+                </div>
+
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-lg font-bold mb-3 text-white">
+                        Kit Lâmpada Super LED H4
+                    </h3>
+                    <p class="text-cinza-texto text-sm mb-6 flex-grow">
+                        Iluminação potente e eficiente para máxima visibilidade, para carros com foco simples.
+                    </p>
+                    <a href="acessorios.html?cat=iluminacao"
+                        class="mt-auto inline-block text-center bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-all duration-300">
+                        Ver Mais
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+       <section id="avaliacoes" class="py-20 bg-black overflow-hidden">
+    <div class="container mx-auto px-6 mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-center">Avaliações diretamente do <span class="text-dourado">Google</span>.</h2>
+    </div>
+
+    <div class="relative w-full overflow-hidden">
+        <div class="absolute inset-y-0 left-0 w-10 md:w-20 bg-gradient-to-r from-black to-transparent z-10 pointer-events-none"></div>
+        <div class="absolute inset-y-0 right-0 w-10 md:w-20 bg-gradient-to-l from-black to-transparent z-10 pointer-events-none"></div>
+
+        <div id="reviews-track" class="flex gap-6 w-max animate-scroll hover:[animation-play-state:paused] py-4">
+            
+            <div class="w-[300px] md:w-[350px] bg-cinza-escuro p-8 rounded-lg text-center flex-shrink-0 border border-transparent hover:border-dourado/30 transition-colors">
+                <div class="flex justify-center mb-4 text-dourado gap-1">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                </div>
+                <p class="italic text-cinza-texto mb-4">"Ótimos preços e com muita variedade"</p>
+                <p class="font-bold text-white">- Geandre M. S. Ribeiro</p>
+                <span class="inline-block bg-dourado/20 text-dourado text-xs font-semibold mt-4 px-2.5 py-0.5 rounded-full">Loja: Gama</span>
+            </div>
+
+            <div class="w-[300px] md:w-[350px] bg-cinza-escuro p-8 rounded-lg text-center flex-shrink-0 border border-transparent hover:border-dourado/30 transition-colors">
+                <div class="flex justify-center mb-4 text-dourado gap-1">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                </div>
+                <p class="italic text-cinza-texto mb-4">"Loja bem completinha, bastante acessórios..."</p>
+                <p class="font-bold text-white">- Kell</p>
+                <span class="inline-block bg-dourado/20 text-dourado text-xs font-semibold mt-4 px-2.5 py-0.5 rounded-full">Loja: Águas Lindas</span>
+            </div>
+
+            <div class="w-[300px] md:w-[350px] bg-cinza-escuro p-8 rounded-lg text-center flex-shrink-0 border border-transparent hover:border-dourado/30 transition-colors">
+                <div class="flex justify-center mb-4 text-dourado gap-1">
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                </div>
+                <p class="italic text-cinza-texto mb-4">"Excelente loja , atendimento profissional..."</p>
+                <p class="font-bold text-white">- ISAÍAS R. JÚNIOR</p>
+                <span class="inline-block bg-dourado/20 text-dourado text-xs font-semibold mt-4 px-2.5 py-0.5 rounded-full">Loja: Águas Lindas</span>
+            </div>
+
+            <div class="w-[300px] md:w-[350px] bg-cinza-escuro p-8 rounded-lg text-center flex-shrink-0 border border-transparent hover:border-dourado/30 transition-colors">
+                <div class="flex justify-center mb-4 text-dourado gap-1">
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                </div>
+                <p class="italic text-cinza-texto mb-4">"Tem de todo nesse lugar"</p>
+                <p class="font-bold text-white">- Wadson Santos</p>
+                <span class="inline-block bg-dourado/20 text-dourado text-xs font-semibold mt-4 px-2.5 py-0.5 rounded-full">Loja: Gama</span>
+            </div>
+
+            <div class="w-[300px] md:w-[350px] bg-cinza-escuro p-8 rounded-lg text-center flex-shrink-0 border border-transparent hover:border-dourado/30 transition-colors">
+                <div class="flex justify-center mb-4 text-dourado gap-1">
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                </div>
+                <p class="italic text-cinza-texto mb-4">"Atendimento ótimo."</p>
+                <p class="font-bold text-white">- Antônio Araujo</p>
+                <span class="inline-block bg-dourado/20 text-dourado text-xs font-semibold mt-4 px-2.5 py-0.5 rounded-full">Loja: Águas Lindas</span>
+            </div>
+
+            <div class="w-[300px] md:w-[350px] bg-cinza-escuro p-8 rounded-lg text-center flex-shrink-0 border border-transparent hover:border-dourado/30 transition-colors">
+                <div class="flex justify-center mb-4 text-dourado gap-1">
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.368 2.447a1 1 0 00-.364 1.118l1.287 3.957c.3.921-.755 1.688-1.54 1.118l-3.368-2.447a1 1 0 00-1.175 0l-3.368 2.447c-.784.57-1.838-.197-1.54-1.118l1.287-3.957a1 1 0 00-.364-1.118L2.072 7.384c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69L9.049.927z"/></svg>
+                </div>
+                <p class="italic text-cinza-texto mb-4">"Atendimento ótimo."</p>
+                <p class="font-bold text-white">- Valdecir Silva</p>
+                <span class="inline-block bg-dourado/20 text-dourado text-xs font-semibold mt-4 px-2.5 py-0.5 rounded-full">Loja: Santo Antônio</span>
+            </div>
+
+        </div>
+    </div>
+</section>
+        
+
+        <!-- NOVA SEÇÃO DE ENTREGAS -->
+         <section id="entregas" class="py-20 bg-cinza-escuro">
+            <div class="container mx-auto px-6">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <a href="https://www.google.com/maps/place/Imp%C3%A9rio+Shopping+Car+Acess%C3%B3rios+-+%C3%81guas+Lindas/@-15.7481027,-48.5696622,11z/data=!4m10!1m2!2m1!1simperio+shopping+car+gama!3m6!1s0x935bb9b955a13bc7:0xb6b7092190db3daa!8m2!3d-15.7481027!4d-48.2647916!15sChlpbXBlcmlvIHNob3BwaW5nIGNhciBnYW1hWhsiGWltcGVyaW8gc2hvcHBpbmcgY2FyIGdhbWGSARVjYXJfYWNjZXNzb3JpZXNfc3RvcmWaASNDaFpEU1VoTk1HOW5TMFZKUTBGblNVUldOVFZEUTJKM0VBRaoBUQoNL2cvMTFtNmNjdmM1MhABMh8QASIbEVN_IWJEmpTR97C5YvGhQCSGvssMMHAVLus3Mh0QAiIZaW1wZXJpbyBzaG9wcGluZyBjYXIgZ2FtYeABAPoBBAgAEBI!16s%2Fg%2F11hdt2mh5b!5m1!1e2?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="relative rounded-lg overflow-hidden h-96 lg:h-auto group">
+                        <img src="src/mapa/mapa Aguas.png" alt="Mapa da região de Brasília" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="bg-dourado/20 backdrop-blur-sm p-8 rounded-full border-2 border-dourado/50 transform transition-transform duration-500 group-hover:scale-110">
+                               <svg class="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <div class="absolute bottom-4 right-4 bg-black/70 p-2 rounded-md text-white text-xs flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                Ver no mapa
+                                <span class="font-sans">→</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="text-center lg:text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Entregamos em todo o <span class="text-dourado">Distrito Federal e Entorno!</span></h2>
+                        <p class="text-cinza-texto leading-relaxed mb-8">
+                            Tudo o que você precisa, perto de casa ou direto na sua porta. Leve, rápido e econômico para poupar seu tempo e dinheiro. Na missão de consertar seu carro, somos seu grande parceiro!
+                        </p>
+                        <button id="btn-delivery-whatsapp" type="button" class="bg-dourado text-black font-bold py-3 px-8 rounded-lg hover:bg-dourado-hover transition-transform duration-300 hover:scale-105 inline-block">
+                            Fale com um Vendedor
+                        </button>
+                    </div>
+                </div>
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Mapa Gama -->
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        <a href="https://www.google.com/maps/place/Imp%C3%A9rio+Shopping+Car+Acess%C3%B3rios+-+Gama/@-16.0072306,-48.3585826,11z/data=!4m10!1m2!2m1!1simperio+shopping+car+gama!3m6!1s0x93598176fcc26539:0x4ff62648dd93bbf5!8m2!3d-16.0072306!4d-48.053712!15sChlpbXBlcmlvIHNob3BwaW5nIGNhciBnYW1hkgEVY2FyX2FjY2Vzc29yaWVzX3N0b3JlqgFRCg0vZy8xMW02Y2N2YzUyEAEyHxABIhsRU38hYkSalNH3sLli8aFAJIa-ywwwcBUu6zcyHRACIhlpbXBlcmlvIHNob3BwaW5nIGNhciBnYW1h4AEA!16s%2Fg%2F11x2lydskq!5m1!1e2?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="relative rounded-lg overflow-hidden w-full md:w-1/2 h-64 group">
+                             <img src="src/mapa/mapa Gama.png" alt="Mapa da loja no Gama" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                             <div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors"></div>
+                        </a>
+                        <div class="text-center md:text-left">
+                            <h3 class="text-2xl font-bold text-white mb-2">Loja <span class="text-dourado">Gama</span></h3>
+                            <p class="text-cinza-texto">Consulte a disponibilidade dos produtos em nossa unidade do Gama.</p>
+                        </div>
+                    </div>
+                     <!-- Mapa Santo Antonio -->
+                     <div class="flex flex-col md:flex-row items-center gap-8">
+                        <a href="https://www.google.com/maps/place/Imp%C3%A9rio+Shopping+Car+Acess%C3%B3rios+-+Santo+Ant%C3%B4nio+do+Descoberto/@-15.942455,-48.2575863,17z/data=!3m1!4b1!4m6!3m5!1s0x935bdb57b0592ce3:0x333abc3d801a3733!8m2!3d-15.942455!4d-48.2575863!16s%2Fg%2F11m6ccvc52!5m1!1e2?entry=ttu&g_ep=EgoyMDI1MDgyNS4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="relative rounded-lg overflow-hidden w-full md:w-1/2 h-64 group">
+                             <img src="src/mapa/mapa Santo.png" alt="Mapa da loja em São Sebastião" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                              <div class="absolute inset-0 bg-black/50 group-hover:bg-black/30 transition-colors"></div>
+                        </a>
+                        <div class="text-center md:text-left">
+                            <h3 class="text-2xl font-bold text-white mb-2">Loja <span class="text-dourado">Santo Antonio</span></h3>
+                            <p class="text-cinza-texto">Consulte a disponibilidade dos produtos em nossa unidade de Santo Antonio.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+       <section id="contato" class="py-20 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold">Fale <span class="text-dourado">Conosco</span></h2>
+                    <p class="text-cinza-texto mt-2 max-w-2xl mx-auto">Tem alguma dúvida ou quer fazer um orçamento? Escolha o melhor canal para você ou nos envie uma mensagem.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    <div class="bg-cinza-escuro p-8 rounded-lg">
+                        <h3 class="text-2xl font-semibold text-white mb-6">Envie sua mensagem</h3>
+                        <form action="#" method="POST" class="space-y-6">
+                            <div>
+                                <label for="name" class="block mb-2 text-sm font-semibold text-cinza-texto">Nome Completo</label>
+                                <input type="text" id="name" name="name" class="w-full p-3 bg-black border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-dourado focus:border-transparent focus:outline-none transition-shadow" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-2 text-sm font-semibold text-cinza-texto">Seu E-mail</label>
+                                <input type="email" id="email" name="email" class="w-full p-3 bg-black border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-dourado focus:border-transparent focus:outline-none transition-shadow" required>
+                            </div>
+                             <div>
+                                <label for="message" class="block mb-2 text-sm font-semibold text-cinza-texto">Sua Mensagem</label>
+                                <textarea id="message" name="message" rows="5" class="w-full p-3 bg-black border border-gray-700 rounded-lg text-white focus:ring-2 focus:ring-dourado focus:border-transparent focus:outline-none transition-shadow" required></textarea>
+                            </div>
+                            <div>
+                                <button type="submit" class="w-full bg-dourado text-black font-bold py-3 px-5 rounded-lg hover:bg-dourado-hover transition-transform duration-300 hover:scale-105 active:scale-100">
+                                    Enviar Mensagem
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="space-y-10">
+                        <div>
+                            <h3 class="text-2xl font-semibold text-white mb-6">Contatos e Lojas</h3>
+                            <!-- Contatos Digitais -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=imperioshoppingcaracessorios@gmail.com&su=Contato%20via%20Site" target="_blank" class="flex flex-col items-center justify-center gap-2 p-4 bg-black/50 rounded-lg hover:bg-dourado group transition-colors">
+                                    <svg class="w-8 h-8 text-dourado group-hover:text-black transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    <span class="text-white group-hover:text-black transition-colors font-semibold">E-mail</span>
+                                </a>
+                                 <a href="https://www.instagram.com/imperioshoppingcaracessorios/" target="_blank" class="flex flex-col items-center justify-center gap-2 p-4 bg-black/50 rounded-lg hover:bg-dourado group transition-colors">
+                                    <svg class="w-8 h-8 text-dourado group-hover:text-black transition-colors" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="currentColor"><title>Instagram</title><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.28-.059-1.688-.073-4.947-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg>
+                                    <span class="text-white group-hover:text-black transition-colors font-semibold">Instagram</span>
+                                </a>
+                            </div>
+                            <!-- Lojas -->
+                            <div class="space-y-4">
+                                <div class="bg-black/50 p-4 rounded-lg border-l-4 border-dourado">
+                                    <h4 class="font-bold text-white text-lg">Águas Lindas</h4>
+                                    <p class="text-cinza-texto text-sm mb-2">Insira o endereço completo da loja aqui.</p>
+                                    <a href="https://api.whatsapp.com/message/FS5GMEPGEON7N1?autoload=1&app_absent=0" target="_blank" class="text-dourado hover:text-dourado-hover font-semibold text-sm inline-flex items-center gap-2">WhatsApp Loja <span class="font-sans">→</span></a>
+                                </div>
+                                <div class="bg-black/50 p-4 rounded-lg border-l-4 border-dourado">
+                                    <h4 class="font-bold text-white text-lg">Santo Antônio do Descoberto</h4>
+                                    <p class="text-cinza-texto text-sm mb-2">Insira o endereço completo da loja aqui.</p>
+                                    <a href="https://api.whatsapp.com/send/?phone=6130464701&text&type=phone_number&app_absent=0" target="_blank" class="text-dourado hover:text-dourado-hover font-semibold text-sm inline-flex items-center gap-2">WhatsApp Loja <span class="font-sans">→</span></a>
+                                </div>
+                                <div class="bg-black/50 p-4 rounded-lg border-l-4 border-dourado">
+                                    <h4 class="font-bold text-white text-lg">Gama</h4>
+                                    <p class="text-cinza-texto text-sm mb-2">Insira o endereço completo da loja aqui.</p>
+                                    <a href="https://api.whatsapp.com/message/LVSAA3BU23OHI1?autoload=1&app_absent=0" target="_blank" class="text-dourado hover:text-dourado-hover font-semibold text-sm inline-flex items-center gap-2">WhatsApp Loja <span class="font-sans">→</span></a>
+                                </div>
+                            </div>
+                        </div>
+                         
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contato-rodape" class="bg-cinza-escuro pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+                <div>
+                    <h3 class="text-xl font-bold text-dourado mb-4">Império Shopping Car</h3>
+                    <p class="text-cinza-texto">Elevando o padrão dos acessórios automotivos no Brasil. Qualidade e exclusividade que você sente ao dirigir.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Links Úteis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#sobre" class="text-cinza-texto hover:text-dourado">Sobre Nós</a></li>
+                        <li><a href="index.html#personalizador" class="text-cinza-texto hover:text-dourado">Personalizador</a></li>
+                        <li><a href="index.html#categorias" class="text-cinza-texto hover:text-dourado">Categorias</a></li>
+                        <li><a href="#" class="text-cinza-texto hover:text-dourado">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Nossas Lojas</h3>
+                    <ul class="space-y-2 text-cinza-texto">
+                        <li><p>Águas Lindas - GO</p></li>
+                        <li><p>Santo Antônio - GO</p></li>
+                        <li><p>Gama - DF</p></li>
+                    </ul>
+                </div>
+                    <div>
+                        <h3 class="font-bold text-white mb-4">Contato & Redes</h3>
+                        <ul class="space-y-2 text-cinza-texto mb-4">
+                            <li class="flex items-start"> <svg class="w-5 h-5 mr-2 text-dourado flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span class="break-all text-sm md:text-base">imperioshoppingcaracessorios@gmail.com</span>
+                            </li>
+                        </ul>
+                        <div class="flex space-x-4">
+                            <a href="https://www.instagram.com/imperioshoppingcaracessorios/" class="text-cinza-texto hover:text-dourado"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" ><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.28-.059-1.688-.073-4.947-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
+                            <a href="https://www.facebook.com/imperioshoppingcaracessorios/?locale=pt_BR" class="text-cinza-texto hover:text-dourado"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.494v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.046c.732 0 1.325-.593 1.325-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex justify-between items-center text-cinza-texto text-sm">
+                <p class="text-center w-full md:w-auto md:text-left">&copy; 2026 Império Shopping Car. Todos os direitos reservados.</p>
+                <p class="hidden md:block">Desenvolvido por <a href="https://kaua-curriculo.vercel.app/" class="text-dourado hover:underline">Kauã Felipe</a></p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- MODAL DE WHATSAPP -->
+    <div id="whatsapp-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+        <div class="bg-cinza-escuro p-8 rounded-lg shadow-2xl w-full max-w-md text-center">
+            <h3 class="text-2xl font-bold text-white mb-4">Falar com qual loja?</h3>
+            <p class="text-cinza-texto mb-6">Selecione uma de nossas lojas para fazer seu orçamento via WhatsApp.</p>
+            <div class="space-y-4">
+                <a id="whatsapp-aguas-lindas" href="https://api.whatsapp.com/message/FS5GMEPGEON7N1?autoload=1&app_absent=0" target="_blank" class="block w-full bg-dourado text-black font-bold py-3 px-5 rounded-lg hover:bg-dourado-hover transition-colors">Águas Lindas</a>
+                <a id="whatsapp-santo-antonio" href="https://api.whatsapp.com/send/?phone=6130464701&text&type=phone_number&app_absent=0" target="_blank" class="block w-full bg-dourado text-black font-bold py-3 px-5 rounded-lg hover:bg-dourado-hover transition-colors">Santo Antônio do Descoberto</a>
+                <a id="whatsapp-gama" href="https://api.whatsapp.com/message/LVSAA3BU23OHI1?autoload=1&app_absent=0" target="_blank" class="block w-full bg-dourado text-black font-bold py-3 px-5 rounded-lg hover:bg-dourado-hover transition-colors">Gama</a>
+            </div>
+            <button id="modal-close-btn" class="mt-8 text-cinza-texto hover:text-white transition-colors">Fechar</button>
+        </div>
+    </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+       <script>
+
+
+
+
+
+
+        
+    const imagensCard3 = [
+        "src/fundoNovo/superled1.png",
+        "src/fundoNovo/superled2.png"
+    ];
+
+    let indexCard3 = 0;
+
+    function trocarImagemCard3(direcao) {
+        indexCard3 += direcao;
+
+        if (indexCard3 < 0) {
+            indexCard3 = imagensCard3.length - 1;
+        }
+
+        if (indexCard3 >= imagensCard3.length) {
+            indexCard3 = 0;
+        }
+
+        document.getElementById("card3Img").src = imagensCard3[indexCard3];
+    }
+
+
+
+
+
+
+
+
+
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ==========================================
+        //  CLONE PARA SCROLL INFINITO (JS)
+        // ==========================================
+        const reviewsTrack = document.getElementById('reviews-track');
+        if (reviewsTrack) {
+            // Clona o conteúdo original e adiciona ao final
+            // Isso cria o efeito "sem fim" quando a animação reseta
+            reviewsTrack.innerHTML += reviewsTrack.innerHTML;
+        }
+
+
+        // --- LÓGICA DAS SETAS DO PERSONALIZADOR ---
+    let currentHubcapIndex = 0;
+    
+    const prevBtn = document.getElementById('prev-hubcap');
+    const nextBtn = document.getElementById('next-hubcap');
+
+    // Função auxiliar para atualizar pelo índice
+    function updateHubcapByIndex(index) {
+        if (index < 0) index = hubcaps.length - 1;
+        if (index >= hubcaps.length) index = 0;
+        
+        currentHubcapIndex = index;
+        changeHubcap(hubcaps[currentHubcapIndex]);
+        
+        // Rola o carrossel para acompanhar a seleção
+        const activeItem = document.querySelector(`.carousel-item[data-hubcap-id="${hubcaps[currentHubcapIndex].id}"]`);
+        if(activeItem) {
+            activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+    }
+
+    if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+            updateHubcapByIndex(currentHubcapIndex - 1);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            updateHubcapByIndex(currentHubcapIndex + 1);
+        });
+    }
+
+
+
+        // ===============================================
+        //  LÓGICA DO SITE (HEADER, MODAL, PERSONALIZADOR)
+        // ===============================================
+
+        // Lógica do Header que esconde ao rolar
+        const header = document.querySelector('header');
+        const mobileMenu = document.getElementById('mobile-menu');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 150) {
+                header.classList.add('-translate-y-full');
+                if (mobileMenu) mobileMenu.classList.add('hidden');
+            } else {
+                header.classList.remove('-translate-y-full');
+            }
+            lastScrollY = window.scrollY;
+        });
+        
+        // Lógica do Menu Mobile
+        const menuBtn = document.getElementById('menu-btn');
+        if (menuBtn && mobileMenu) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        // Lógica do Modal do WhatsApp e Personalizador...
+        // (Todo o restante do script do site que já funcionava)
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        let orcamentoMessage = '';
+        const whatsappLinks = { aguasLindas: document.getElementById('whatsapp-aguas-lindas'), santoAntonio: document.getElementById('whatsapp-santo-antonio'), gama: document.getElementById('whatsapp-gama') };
+        const storeUrls = { aguasLindas: "https://api.whatsapp.com/message/FS5GMEPGEON7N1?autoload=1&app_absent=0", santoAntonio: "https://api.whatsapp.com/send/?phone=6130464701&text&type=phone_number&app_absent=0", gama: "https://api.whatsapp.com/message/LVSAA3BU23OHI1?autoload=1&app_absent=0" };
+        function openWhatsappModal(message) { const finalMessage = message || "Olá! Gostaria de fazer um orçamento."; whatsappLinks.aguasLindas.href = `${storeUrls.aguasLindas}&text=${encodeURIComponent(finalMessage)}`; whatsappLinks.santoAntonio.href = `https://api.whatsapp.com/send/?phone=6130464701&text=${encodeURIComponent(finalMessage)}&type=phone_number&app_absent=0`; whatsappLinks.gama.href = `${storeUrls.gama}&text=${encodeURIComponent(finalMessage)}`; whatsappModal.classList.remove('hidden'); }
+        document.querySelectorAll('.whatsapp-btn').forEach(button => { button.addEventListener('click', () => { const produto = button.dataset.produto; const message = `Olá! Tenho interesse no produto: ${produto}.`; openWhatsappModal(message); }); });
+        const btnOrcamento = document.getElementById('btn-orcamento');
+        if(btnOrcamento) { btnOrcamento.addEventListener('click', (event) => { event.preventDefault(); openWhatsappModal(orcamentoMessage); }); }
+        const btnDelivery = document.getElementById('btn-delivery-whatsapp');
+        if(btnDelivery) { btnDelivery.addEventListener('click', (event) => { event.preventDefault(); openWhatsappModal(null); }); }
+        if (modalCloseBtn) { modalCloseBtn.addEventListener('click', () => { whatsappModal.classList.add('hidden'); }); }
+        if (whatsappModal) { whatsappModal.addEventListener('click', (e) => { if (e.target === whatsappModal) whatsappModal.classList.add('hidden'); }); }
+
+
+        const hubcapImage = document.getElementById('hubcap-image');
+const carousel = document.getElementById('hubcap-carousel');
+const nomeCalotaEl = document.getElementById('nome-calota');
+const precoCalotaEl = document.getElementById('preco-calota');
+
+// CORREÇÃO 1: IDs e Nomes agora são únicos para cada calota.
+const hubcaps = [
+    { id: 'calota-0', name: "Modelo Prime Prata", price: "LC-200 = Aro 13, LC-230 = Aro 14", imageUrl: 'src/calotas/00.png' },
+    { id: 'calota-1', name: "Modelo Prime Preto/Vermelho", price: "1005 = Aro 13, 4405 = Aro 14", imageUrl: 'src/calotas/0.png' },
+    { id: 'calota-2', name: "Modelo Prime Branco/Preto", price: "1010 = Aro 13, 4410 = Aro 14", imageUrl: 'src/calotas/1.png' },
+    { id: 'calota-3', name: "Modelo Model Gráfite/Prata", price: "1416 = Aro 14, 1516 = Aro 15", imageUrl: 'src/calotas/2.png' },
+    { id: 'calota-4', name: "Modelo Model Preto/Vermelho", price: "1421 = Aro 14, 1521 = Aro 15", imageUrl: 'src/calotas/3.png' },
+    { id: 'calota-5', name: "Modelo Spider Preto/Prata", price: "1304 = Aro 13, 1404 = Aro 14, 1504 = Aro 15", imageUrl: 'src/calotas/4.png' },
+    { id: 'calota-6', name: "Modelo Spider Preto/Vermelho", price: "1307 = Aro 13, 1407 = Aro 14, 1507 = Aro 15", imageUrl: 'src/calotas/5.png' },
+    { id: 'calota-7', name: "Modelo Flap Preto/Vermelho", price: "2206 = aro 13", imageUrl: 'src/calotas/6.png' },
+    { id: 'calota-8', name: "Modelo DS4 Amarelo", price: "3005 = Aro 13, 4105 = Aro 14, 5105 = Aro 15", imageUrl: 'src/calotas/7.png' },
+    { id: 'calota-9', name: "Modelo DS4 Azul", price: "3017 = Aro 13, 4117 = Aro 14, 5117 = Aro 15", imageUrl: 'src/calotas/8.png' },
+    { id: 'calota-10', name: "Modelo DS4 Branco/Preto", price: "3014 = Aro 13, 4114 = Aro 14, 5114 = Aro 15", imageUrl: 'src/calotas/9.png' },
+    { id: 'calota-26', name: "Modelo DS4 Prata", price: "LC-300 = Aro 13, LC-330 = Aro 14, LC-360 = Aro 15", imageUrl: 'src/calotas/25.png' },
+    { id: 'calota-27', name: "Modelo DS4 Grafite", price: "LC-301 = Aro 13, LC-331 = Aro 14, LC-361 = Aro 15", imageUrl: 'src/calotas/26.png' },
+    { id: 'calota-11', name: "Modelo Nitro Preto/Vermelho", price: "3807 = Aro 13, 4807 = Aro 14", imageUrl: 'src/calotas/10.png' },
+    { id: 'calota-12', name: "Modelo Nitro Chromada", price: "3812 = Aro 13, 4812 = Aro 14", imageUrl: 'src/calotas/11.png' },
+    { id: 'calota-13', name: "Modelo Nitro Grafite", price: "LC-211 = Aro 13, LC-216 = Aro 14", imageUrl: 'src/calotas/12.png' },
+    { id: 'calota-14', name: "Modelo Twister Prata/Grafite", price: "3301 = Aro 13, 4301 = Aro 14, 5301 = Aro 15", imageUrl: 'src/calotas/13.png' },
+    { id: 'calota-15', name: "Modelo Twister Prata/Preto", price: "3303 = Aro 13, 4303 = Aro 14, 5303 = Aro 15", imageUrl: 'src/calotas/14.png' },
+    { id: 'calota-16', name: "Modelo Twister Preto/Vermelho", price: "3307 = Aro 13, 4307 = Aro 14, 5307 = Aro 15", imageUrl: 'src/calotas/15.png' },
+    { id: 'calota-17', name: "Modelo Triton Sport Rosa", price: "3513 = Aro 13, 4513 = Aro 14", imageUrl: 'src/calotas/16.png' },
+    { id: 'calota-18', name: "Modelo Triton Sport Azul", price: "3512 = Aro 13, 4512 = Aro 14", imageUrl: 'src/calotas/17.png' },
+    { id: 'calota-19', name: "Modelo Triton Vermelho", price: "3607 = Aro 13, 4607 = Aro 14", imageUrl: 'src/calotas/18.png' },
+    { id: 'calota-20', name: "Modelo Triton Grafite/Prata", price: "3602 = Aro 13, 4602 = Aro 14", imageUrl: 'src/calotas/19.png' },
+    { id: 'calota-21', name: "Modelo Triton Preto/Prata", price: "3604 = Aro 13, 4604 = Aro 14", imageUrl: 'src/calotas/20.png' },
+    { id: 'calota-22', name: "Modelo Velox Prata/Preto", price: "3703 = Aro 13, 4703 = Aro 14, 5703 = Aro 15", imageUrl: 'src/calotas/21.png' },
+    { id: 'calota-23', name: "Modelo Velox Preto/Vermelho", price: "3707 = Aro 13, 4707 = Aro 14, 5707 = Aro 15", imageUrl: 'src/calotas/22.png' },
+    { id: 'calota-24', name: "Modelo Velox Preto/Cromada", price: "3711 = Aro 13, 4711 = Aro 14, 5711 = Aro 15", imageUrl: 'src/calotas/23.png' },
+    { id: 'calota-25', name: "Modelo Velox Prata", price: "LC-110 = Aro 13, LC-115 = Aro 14, LC-120 = Aro 15", imageUrl: 'src/calotas/24.png' },
+    { id: 'calota-28', name: "Modelo Street Prata", price: "LC-170 = aro 14", imageUrl: 'src/calotas/27.png' },
+];
+
+function changeHubcap(hubcapData) {
+            const { id, name, price, imageUrl } = hubcapData;
+            hubcapImage.style.transform = 'scale(0.8) rotate(-45deg)';
+            hubcapImage.style.opacity = '0';
+            nomeCalotaEl.style.opacity = '0';
+            precoCalotaEl.style.opacity = '0';
+
+            setTimeout(() => {
+                hubcapImage.src = imageUrl;
+                hubcapImage.style.transform = 'scale(1) rotate(0deg)';
+                hubcapImage.style.opacity = '1';
+                nomeCalotaEl.textContent = name;
+                
+                // CORREÇÃO: Pula a linha a cada vírgula
+                precoCalotaEl.textContent = price.split(',').join('\n');
+                
+                nomeCalotaEl.style.opacity = '1';
+                precoCalotaEl.style.opacity = '1';
+                btnOrcamento.classList.remove('opacity-0', 'pointer-events-none');
+            }, 250);
+
+            document.querySelectorAll('.carousel-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.hubcapId === id);
+            });
+        }
+
+function populateCarousel() {
+    if (!carousel) return;
+    const spacerStart = document.createElement('div');
+    spacerStart.className = 'flex-shrink-0 w-2';
+    carousel.appendChild(spacerStart);
+
+    hubcaps.forEach(hubcap => {
+        const wrapper = document.createElement('div');
+        wrapper.className = 'carousel-item flex-shrink-0 bg-black p-2 rounded-full cursor-pointer';
+        wrapper.dataset.hubcapId = hubcap.id;
+
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'w-24 h-24 bg-cinza-escuro rounded-full flex items-center justify-center overflow-hidden p-1';
+        
+        // CORREÇÃO 2: Adicionadas as classes "relative top-2" para descer a imagem.
+        imgContainer.innerHTML = `<img src="${hubcap.imageUrl}" alt="${hubcap.name}" class="w-full h-full object-contain" onerror="this.onerror=null;this.src='https://placehold.co/96x96/1A1A1A/D4AF37?text=Calota';">`;
+        wrapper.appendChild(imgContainer);
+        wrapper.addEventListener('click', () => changeHubcap(hubcap));
+        carousel.appendChild(wrapper);
+    });
+
+    const spacerEnd = document.createElement('div');
+    spacerEnd.className = 'flex-shrink-0 w-2';
+    carousel.appendChild(spacerEnd);
+}
+
+if (carousel) {
+    populateCarousel();
+    if(hubcaps.length > 0) {
+        changeHubcap(hubcaps[0]);
+    }
+}
+
+        
+       // ===============================================
+        //  ANIMAÇÃO DA BANDEIRA (THREE.JS)
+        // ===============================================
+        const flagCanvas = document.getElementById('waving-flag-bg');
+        
+        if (flagCanvas && typeof THREE !== 'undefined') { // Garante que o canvas e a biblioteca existem
+            const scene = new THREE.Scene();
+            const clock = new THREE.Clock();
+            const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+            camera.position.z = 25;
+
+            const renderer = new THREE.WebGLRenderer({ canvas: flagCanvas, antialias: true, alpha: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+            const textureLoader = new THREE.TextureLoader();
+            textureLoader.load(
+                // ✅ CONFIRME QUE ESTE CAMINHO ESTÁ CORRETO
+                'src/fundo1.png',
+                (texture) => {
+                    const planeGeometry = new THREE.PlaneGeometry(50, 35, 60, 45);
+                    const planeMaterial = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+                    const flag = new THREE.Mesh(planeGeometry, planeMaterial);
+                    scene.add(flag);
+                    animateFlag(flag);
+                },
+                undefined,
+                (error) => {
+                    console.error('Falha ao carregar a imagem para a animação. Verifique o caminho do arquivo e se está usando um servidor local (Live Server).', error);
+                }
+            );
+
+            function animateFlag(flag) {
+                requestAnimationFrame(() => animateFlag(flag));
+
+                const t = clock.getElapsedTime();
+                const position = flag.geometry.attributes.position;
+
+                for (let i = 0; i < position.count; i++) {
+                    const waveX1 = 0.5 * Math.sin(position.getX(i) * 0.15 + t * 1.5);
+                    const waveY1 = 0.5 * Math.sin(position.getY(i) * 0.15 + t * 1.0);
+                    position.setZ(i, waveX1 + waveY1);
+                }
+                
+                position.needsUpdate = true;
+                renderer.render(scene, camera);
+            }
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            }, false);
+        }
+    });
+    </script>
+
+</body>
+
+</body>
+</html>

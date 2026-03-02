@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Império acessorios Car</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { 
+                        'dourado': '#D4AF37', 
+                        'dourado-hover': '#EACD69', 
+                        'cinza-escuro': '#1A1A1A', 
+                        'cinza-texto': '#A9A9A9' 
+                    },
+                    fontFamily: { 'poppins': ['Poppins', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-black text-white font-poppins">
+
+    <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 w-full z-50 transition-transform duration-300">
+        <div class="container mx-auto px-6 py-3 grid grid-cols-3 items-center">
+            <div class="justify-self-start">
+                 <a href="index.html" class="focus:outline-none p-2">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dourado" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                     </svg>
+                 </a>
+            </div>
+            <div class="justify-self-center">
+                 <a href="index.html">
+                     <img src="src/logo.png" alt="Império Logo" class="h-12 w-auto">
+                 </a>
+            </div>
+            <div class="justify-self-end">
+                <button onclick="abrirModalSelecao('Geral')" class="bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-all text-sm">
+                    Fale Conosco
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero-acessorios" class="relative py-24 pt-40 bg-cover bg-center" style="background-image: url('src/fundo2.png');">
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative container mx-auto px-6 text-center">
+                <h1 id="titulo-pagina" class="text-4xl md:text-5xl font-bold mb-2 transition-all duration-300">Acessórios <span class="text-dourado">Exclusivos</span></h1>
+                <p class="text-lg text-cinza-texto">Qualidade premium e especificações técnicas de alto padrão.</p>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                
+                <div class="flex flex-wrap justify-center gap-3 mb-12">
+                    <button data-cat="todos" onclick="filtrar('todos')" class="filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm">Todos</button>
+                    <button data-cat="iluminacao" onclick="filtrar('iluminacao')" class="filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm">Iluminação</button>
+                    <button data-cat="lataria" onclick="filtrar('lataria')" class="filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm">Lataria</button>
+                    <button data-cat="acessorios" onclick="filtrar('acessorios')" class="filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm">Acessórios</button>
+                    <button data-cat="grades" onclick="filtrar('grades')" class="filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm">Para-choques e Grades</button>
+                    <button data-cat="shopping" onclick="filtrar('shopping')" class="filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm">Shopping</button>
+                    <button data-cat="mecanica" onclick="filtrar('mecanica')" class="filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm">Mecânica</button>
+                </div>
+
+                <div id="grid-produtos" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+            </div>
+        </section>
+    </main>
+
+    <div id="whatsapp-modal" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
+        <div class="bg-cinza-escuro p-8 rounded-2xl shadow-2xl w-full max-w-md text-center border border-white/10">
+            <h3 class="text-2xl font-bold text-white mb-4">Orçamento via WhatsApp</h3>
+            <div class="space-y-4">
+                <a id="link-aguas" href="#" target="_blank" class="block w-full bg-dourado text-black font-bold py-4 rounded-xl hover:bg-dourado-hover transition-all">Águas Lindas</a>
+                <a id="link-santo" href="#" target="_blank" class="block w-full bg-dourado text-black font-bold py-4 rounded-xl hover:bg-dourado-hover transition-all">Santo Antônio</a>
+                <a id="link-gama" href="#" target="_blank" class="block w-full bg-dourado text-black font-bold py-4 rounded-xl hover:bg-dourado-hover transition-all">Gama</a>
+            </div>
+            <button onclick="fecharModal()" class="mt-8 text-cinza-texto hover:text-white transition-colors">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+        // LISTA DE PRODUTOS ORGANIZADA POR CATEGORIAS
+      const todosProdutos = [
+    // --- MECÂNICA ---
+    { cat: 'mecanica', nome: "Bieleta, Barra Estabilizadora Onix e Prisma 2013 a 2022", fotos: ["src/fundoNovo/bieletaBarraOnix.Orisma.png", "src/fundoNovo/bieletaBarraOnix.Orisma2.png"], specs: ["Aplicação:Onix, Prisma, Cobalt, Spin", "Marca: - ", "Peça para reposição"] },
+    { cat: 'mecanica', nome: "Chicote Elétrico ETE 7743", fotos: ["src/fundoNovo/chicoteETE7743.png", "src/fundoNovo/chicoteETE7743.2.png"], specs: ["Aplição: Conector ou Plug para Bico Injetor do Gol, Palio, Uno e sensor de temperatura, rotação e detonação do Atuador da Marcha Lenta da linha Ford", "Marca: Rainha das Sete"] },
+    { cat: 'mecanica', nome: "Chicote Elétrico ETE 7760", fotos: ["src/fundoNovo/chicoteETE7760.1.png", "src/fundoNovo/chicoteETE7760.2.png"], specs: ["Aplicação: Chicote Conector para Lanternas Traseiras Guerra e Ramdon com 5 vias", "Marca: Rainha das Sete"] },
+    { cat: 'mecanica', nome: "Chicote Elétrico ETE 7799", fotos: ["src/fundoNovo/chicoteETE7799.png", "src/fundoNovo/chicoteETE7799.2.png"], specs: ["Aplicação: Conector de Compressor para os carros VW Up, Bora e Golf. Com 2 Vias, utilizado também nos Faróis de Milha do Gol GIII e Lanterna de seta compátivel Volvo", "Marca: Rainha das Sete"] },
+    { cat: 'mecanica', nome: "Chicote Elétrico ETE 7885", fotos: ["src/fundoNovo/chicoteETE7885.1.png", "src/fundoNovo/chicoteETE7885.2.png"], specs: ["Aplicação: Conector 1 Via para Interruptor do Óleo e Sensor de Temperatura do Gol 1994 a 2013, compatível com Ford Edge, Fiesta, Focus, Fusion, Ka e Ranger ", "Marca: Rainha das Sete"] },
+    { cat: 'mecanica', nome: "Pivô de Suspensão do Fiesta/Ka/EcoSport", fotos: ["src/fundoNovo/pivo1.png", "src/fundoNovo/pivo2.png", "src/fundoNovo/pivo3.png"], specs: ["Aplicação: Pivô para os carros Fiesta, Ka e EcoSport do ano 2002 a 2014, código 653104"] },
+    { cat: 'mecanica', nome: "Suporte Barra Estabilizadora", fotos: ["src/fundoNovo/suporteBarra.png", "src/fundoNovo/suporteBarra2.png"], specs: ["Aplicação: Suporte Barra Estabilizadora ou Tensora do Corsa e Celta 1998 a 2015, lado direito", "-"] },
+    { cat: 'mecanica', nome: "Parafuso de Liga Leve Chevrolet/GM ", fotos: ["src/fundoNovo/parafChev.png"], specs: ["Aplicável:Todos da linha GM/General Motors, Chevrolet", "Unidade e Jogos" ] },
+    { cat: 'mecanica', nome: "Parafuso de Liga Leve Fiat", fotos: ["src/fundoNovo/parafFiat1.png", "src/fundoNovo/parafFiat2.png"], specs: ["Aplicável:Todos da linha Fiat com variação de tamanho de acordo com a montadora", "Unidade e Jogos"] },
+    { cat: 'mecanica', nome: "Parafuso de Liga Leve VW", fotos: ["src/fundoNovo/parafVolksw.png"], specs: ["Aplicável: linha VolksWagem com variação de tamanho de acordo com a montadora", "Unidade e Jogos"] },
+    { cat: 'mecanica', nome: "Parafuso de Liga Leve Golf", fotos: ["src/fundoNovo/parafGolf.png"], specs: ["Aplicável: Específico a linha VolksWagem Golf", "Unidade e Jogos"] },
+    { cat: 'mecanica', nome: "Kit de Reparo da Alavanca do Câmbio do Gol", fotos: ["src/fundoNovo/reparo2.png", "src/fundoNovo/reparo3.png"], specs: ["Aplicável: Kit de reparo do VolksWagem Gol, Fox e Polo GIII, GIV e GV", "Com Mola e Buchas"] },
+    
+
+    // --- ACESSÓRIOS ---
+    { cat: 'acessorios', nome: "Cabo Maçaneta Uno 2010 a 2022", fotos: ["src/fundoNovo/caboMaçanetaUno10....png"], specs: ["Aplicável: Cabo de abertura da fechadura ou cabo acionador da porta do Novo Uno/Vivace 4 portas", "1 peça, imagem meramente ilustrativa"] },
+    { cat: 'acessorios', nome: "Coifa e bola do Câmbio do Onix e Prisma", fotos: ["src/fundoNovo/coifacambioc.BolaOnix.png", "src/fundoNovo/coifacambioc.BolaOnix2.png", "src/fundoNovo/coifacambioc.BolaOnix3.png"], specs: ["Aplicável: Linhas do Onix e Prisma dos anos 2013 a 2019. Não se aplica a versão JOY", "Marca: A Coifa da Nat é confeccionada em material ecológico além de possuir a costura reforçada e material em ABS"] },
+    { cat: 'acessorios', nome: "Coifa do Câmbio Corsa/Celta modelo Napa", fotos: ["src/fundoNovo/coifaCambioCorsa,Celta,MerivaNapa.png", "src/fundoNovo/coifaCambioCorsa,Celta,MerivaNapa2.png"], specs: ["Aplicável: a toda a linha corsa e celta dos anos 1995 a 2012" , "Fabricado em Napa com base de Plástico"] },
+    { cat: 'acessorios', nome: "Coifa do Câmbio Corsa/Celta Sanfonada", fotos: ["src/fundoNovo/coifacambioCorsaCeltaSanfonada.png", "src/fundoNovo/coifacambioCorsaCeltaSanfonada2.png"], specs: ["Aplicável: Coifa da Alavanca do Corsa, Celta 2007 a 2016 e Prisma 2007 a 2012. Sanfonada e com Base", "Marca: NAT"] },
+    { cat: 'acessorios', nome: "Fecho do Cinto de Segurança do Corsa", fotos: ["src/fundoNovo/fechoCintoCorsa1.png", "src/fundoNovo/fechoCintoCorsa2.png"], specs: ["Aplicável: Fecho do Cinto para Celta, Corsa e Prisma", "Reposição com segurança"] },
+    { cat: 'acessorios', nome: "Interruptor Duplo do Vidro do Gol GV", fotos: ["src/fundoNovo/interruptorDuploVidroGol05....png"], specs: ["Aplicável: Botão duplo do vidro elétrico do gol G5, G6 e G7. Compatível com Fox, Voyage e Saveiro", "Possui 2 estágios, 4 pinos, Dianteiro Esquerdo"] },
+    { cat: 'acessorios', nome: "Manopla de Regulagem do Banco do Gol", fotos: ["src/fundoNovo/manoplaGol.png"], specs: ["Aplicável: Roldana reguladora do Gol GV, GVI, GVII, Fox e Saveiro", "Reposição em plástico da cor preta"] },
+    { cat: 'acessorios', nome: "Puxador de Porta Gol GV, GVI", fotos: ["src/fundoNovo/puxador1.png", "src/fundoNovo/puxador2.png"], specs: ["Puxador de porta interna do gol GV e GVI, aplicável do ano 2008 a 2014"] },
+    { cat: 'acessorios', nome: "Maçaneta Interna do Corsa", fotos: ["src/fundoNovo/maçanetaCorsa1.png", "src/fundoNovo/maçanetaCorsa2.png"], specs: ["Aplicável: Maçaneta dianteira do Corsa 1994 a 2004 e do Corsa Classic 2004 a 2010"] },
+    { cat: 'acessorios', nome: "Maçaneta Externa do Gol", fotos: ["src/fundoNovo/maçanetaGol1.png", "src/fundoNovo/maçanetaGol2.png"], specs: ["Aplicável: Maçaneta externa dianteira esquerda com fechadura e chaves para o gol GIII e GIV de 1998 a 2005 e parati"] },
+    { cat: 'acessorios', nome: "Maçaneta Interna do HB20", fotos: ["src/fundoNovo/maçanetaHB20.png", "src/fundoNovo/maçanetaHB20 (2).png"], specs: ["Aplicável: Maçaneta cromada interna do Hyundai hb20 compatível 2012 a 2019", "Peça de resposição"] },
+    { cat: 'acessorios', nome: "Maçaneta Interna do Renault Kwid", fotos: ["src/fundoNovo/maçanetaKwid1.png", "src/fundoNovo/maçanetaKwid2.png"], specs: ["Aplicável: Gatilho ou maçaneta interna da porta do Renault Kwid 2017 a 2022", "Material plástico na cor preta"] },
+    { cat: 'acessorios', nome: "Maçaneta Externa do Onix/Prisma", fotos: ["src/fundoNovo/maçanetaOnix1.png", "src/fundoNovo/maçanetaOnix2.png"], specs: ["Aplicável: Maçaneta/Puxador externo da porta dianteira esquerda para Onix, Prisma, Cobalt e Spin 2012 a 2023"] },
+    { cat: 'acessorios', nome: "Manivela do Vidro do Fiat Uno", fotos: ["src/fundoNovo/maçanetaUno.png"], specs: ["Aplicável: Maçaneta do vidro do Novo Uno, Vivace, Way e Fiorino 2011 a 2020"] },
+    { cat: 'acessorios', nome: "Maçaneta Externa do Ford Fiesta", fotos: ["src/fundoNovo/maçanetaFi1.png", "src/fundoNovo/maçanetaFi2.png", "src/fundoNovo/maçanetaFi3.png"], specs: ["Aplicável: Maçaneta externa das portas dianteira e traseiras sem chave compatível com Ford Fiesta, Ka e Courier 1996 a 2013"] },
+    { cat: 'acessorios', nome: "Maçaneta Externa do Celta e Prisma", fotos: ["src/fundoNovo/maçanetaCelta1.png", "src/fundoNovo/maçanetaCelta2.png", "src/fundoNovo/maçanetaCelta3.png"], specs: ["Aplicável: Maçaneta externa das portas traseiras do Chevrolet Celta e Prisma, anos 2000 a 2013"] },
+    { cat: 'acessorios', nome: "Maçaneta Externa sem furo do C3 ", fotos: ["src/fundoNovo/maçaneta1.png", "src/fundoNovo/maçaneta2.png"], specs: ["Aplicável: Maçaneta externa do Peugeot 208 e Citroen C3 2013 a 2022"] },
+    { cat: 'acessorios', nome: "Fechadura do Porta Mala do Gol 1999", fotos: ["src/fundoNovo/fechaduraPortaGol99...1.png", "src/fundoNovo/fechaduraPortaGol99...2.png"], specs: ["Aplicável: Fechadura Mecânica interna do porta malas do gol GIII e GIV"] },
+    { cat: 'acessorios', nome: "Fechadura do Porta do Palio 2 Portas", fotos: ["src/fundoNovo/fechaduraPortaPalio2pts96a07.1.png", "src/fundoNovo/fechaduraPortaPalio2pts96a07.2.png", "src/fundoNovo/fechaduraPortaPalio2pts96a07.3.png"], specs: ["Aplicável: Fechadura Mecânica interna da porta esquerda do palio 2 portas compatível 1996 a 2007, código 70039"] },
+    { cat: 'acessorios', nome: "Máquina de Vidro do Gol GI", fotos: ["src/fundoNovo/maqVidroGol1.png", "src/fundoNovo/maqVidroGol2.png"], specs: ["Aplicável: Máquina de vidro do Gol GI até 1995 com acionamento elétrico, código 21233"] },
+    { cat: 'acessorios', nome: "Máquina de Vidro do Ford Ka", fotos: ["src/fundoNovo/maqVidroKa1.png", "src/fundoNovo/maqVidroKa2.png"], specs: ["Aplicável: Máquina de vidro do Ford Ka disponíveis até 2014 com acionamento manual, código 30516"] },
+    { cat: 'acessorios', nome: "Retrovisor do Peugeot 206", fotos: ["src/fundoNovo/retrov206.1.png", "src/fundoNovo/retrov206.2.png", "src/fundoNovo/retrov206.3.png"], specs: ["Aplicável: Retrovisor do Peugeot 206 e 207 compatível 1999 a 2014", "Ajuste Manual", "Marca: Retrovex"] },
+    { cat: 'acessorios', nome: "Retrovisor do Fiat Argo 2017", fotos: ["src/fundoNovo/retrovisorArgo17...comControleLadoEsquerdo1.png", "src/fundoNovo/retrovisorArgo17...comControleLadoEsquerdo2.png", "src/fundoNovo/retrovisorArgo17...comControleLadoEsquerdo3.png"], specs: ["Aplicável: Retrovisor do Fiat Argo e Cronos 2017 a 2019 com controle manual interno", "Marca: Retrovex"] },
+    { cat: 'acessorios', nome: "Retrovisor do Celta 07", fotos: ["src/fundoNovo/retrovisorCelta07...comControleLadoDireito.png", "src/fundoNovo/retrovisorCelta07...comControleLadoDireito2.png"], specs: ["Aplicável: Retrovisor do Celta e Prisma 2007 em diante com controle manual interno", "Marca: Retrovex" ] },
+    { cat: 'acessorios', nome: "Retrovisor do Corsa 1994 a 2009", fotos: ["src/fundoNovo/retrovisorCorsa94.09comControlEladoesquerdo.png", "src/fundoNovo/retrovisorCorsa94.09comControlEladoesquerdo2.png"], specs: ["Aplicável: Retrovisor do Chevrolet Corsa Wind, Sedan, Wagon, Pick-Up e Classic", "Controle Manual",  "Marca: Retrovex"] },
+    { cat: 'acessorios', nome: "Retrovisor do Gol GV", fotos: ["src/fundoNovo/retrovisorGolG5comControleLadoDiretito1.png", "src/fundoNovo/retrovisorGolG5comControleLadoDiretito2.png", "src/fundoNovo/retrovisorGolG5comControleLadoDiretito3.png"], specs: ["Aplicável: Retrovisor do Gol, Voyage GV 2008 a 2012", "Com controle manual",  "Marca: Retrovex"] },
+    { cat: 'acessorios', nome: "Retrovisor do Novo Palio e Grand Siena", fotos: ["src/fundoNovo/retrovisorPalio12...GranSienacomControleLadoEsquerdo1.png", "src/fundoNovo/retrovisorPalio12...GranSienacomControleLadoEsquerdo2.png", "src/fundoNovo/retrovisorPalio12...GranSienacomControleLadoEsquerdo3.png"], specs: ["Aplicável: Retrovisor do Palio, Novo Palio, Attractive e Grand Siena dos anos 2012 a 2021", "Controle Interno manual"] },
+    { cat: 'acessorios', nome: "Retrovisor do Uno 2010 Original", fotos: ["src/fundoNovo/retrovisorUno10...OriginalcomPiscaecomSensor.png", "src/fundoNovo/retrovisorUno10...OriginalcomPiscaecomSensor2.png", "src/fundoNovo/retrovisorUno10...OriginalcomPiscaecomSensor3.png", "src/fundoNovo/retrovisorUno10...OriginalcomPiscaecomSensor4.png"], specs: ["Aplicável: Retrovisor do Uno 2010 Original com Pisca e Sensor", "Original da marca Metagal"] },
+    { cat: 'acessorios', nome: "Retrovisor do Onix", fotos: ["src/fundoNovo/retrovOnix1.png", "src/fundoNovo/retrovOnix2.png", "src/fundoNovo/retrovOnix3.png"], specs: ["Aplicável: Onix e Prisma 2013 a 2019 com controle manual interno", "Marca: Retrovex"] },
+    { cat: 'acessorios', nome: "Emblema do Golf TSI ", fotos: ["src/fundoNovo/emblemaTSIgolf.png"], specs: ["Identificação da versão TSI", "Acabamento Vermelho e Cromado.(Fundo vermelho = dupla face)"] },
+    { cat: 'acessorios', nome: "Emblema da Ford Ranger XLT", fotos: ["src/fundoNovo/emblemaXLTFord.png"], specs: ["Identificação XLT", "Metal Cromado"] },
+    { cat: 'acessorios', nome: "Emblema do Gol GV Power", fotos: ["src/fundoNovo/emblemaPowerVW.png"], specs: ["Identificação da versão Power do Gol 2008", "Reposição cromada"] },
+    { cat: 'acessorios', nome: "Emblema da Tampa Traseira do HB20", fotos: ["src/fundoNovo/emblemamalaHB20.png"], specs: ["Idetificação da mala, Hyundai", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema do HB20 Flex", fotos: ["src/fundoNovo/emblemaFlex(hb20).png"], specs: ["Identificação Flex para os HB20 modelos 2012 a 2019", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema do HB20s", fotos: ["src/fundoNovo/emblemaHB20s.png"], specs: ["Identificação do novo HB20s 1.6 modelos 2016 a 2022", "Com fita dupla face"] },
+    { cat: 'acessorios', nome: "Emblema Peugeot", fotos: ["src/fundoNovo/emblemaCromadoPeugeot.png"], specs: ["Identificação do porta malas do Peugeot modelo 206", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Corcel", fotos: ["src/fundoNovo/emblemaCorcel1.png", "src/fundoNovo/emblemaCorcel2.png"], specs: ["Identificação do Ford Corcel II ano 1978 a 1984", "Autocolante no porta malas"] },
+    { cat: 'acessorios', nome: "Emblema 2.0 VW", fotos: ["src/fundoNovo/emblema2.0CromadoVW.png"], specs: ["Identificação dos modelos VW Jetta, Golf e Polo 2009 a 2023", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Argo", fotos: ["src/fundoNovo/emblemaCromadoArgo17....png"], specs: ["Identificação Fiat Argo 2017", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Civic 1997 a 2000", fotos: ["src/fundoNovo/emblemaCromadoCivic97...00.png", "src/fundoNovo/emblemaHondaCivic1.png", "src/fundoNovo/emblemaHondaCivic2.png"], specs: ["Identificação do Honda Civic da Mala", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Corolla ", fotos: ["src/fundoNovo/emblemaCromadoCorolla03....png", "src/fundoNovo/emblemaCromadoCorolla03...2.png"], specs: ["Identificação do Toyota Corolla modelos de 1998 a 2003", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Classic", fotos: ["src/fundoNovo/emblemaCromadoCorsa.png", "src/fundoNovo/emblemaCromadoCorsa2.png"], specs: ["Identificação da versão Classic do Corsa", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Ford Ka", fotos: ["src/fundoNovo/emblemaCromadoKa08....png", "src/fundoNovo/emblemaCromadoKa08...2.png"], specs: ["Identificação Ford ka 2008 a 2014", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Ford da Ecosport", fotos: ["src/fundoNovo/emblemaEcosport30.12pMalaeGrade.png", "src/fundoNovo/emblemaEcosport30.12pMalaeGrade2.png"], specs: ["Identificação da Grade da EcoSport"] },
+    { cat: 'acessorios', nome: "Emblema do Gol GIII", fotos: ["src/fundoNovo/emblemaGol08...GIII1.png", "src/fundoNovo/emblemaGol08...GIII2.png"], specs: ["Identificação/letreiro do porta mala do gol GIII compatível de 1999 a 2005", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema da Grade do Corolla", fotos: ["src/fundoNovo/emblemaGradeCorolla09...1.png", "src/fundoNovo/emblemaGradeCorolla09...2.png"], specs: ["Identificação da grade frontal do Toyota Corolla 2009ba 2014"] },
+    { cat: 'acessorios', nome: "Emblema da Grade do Gol GVI", fotos: ["src/fundoNovo/emblemaGradeGolGVI.png"], specs: ["Identificação VolksWagem para o Gol GVI ano 2012 a 2016", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema da Grade do Celta", fotos: ["src/fundoNovo/emblemaMalaCeltagravatadourada1.png", "src/fundoNovo/emblemaMalaCeltagravatadourada2.png", "src/fundoNovo/emblemaMalaCeltagravatadourada3.png"], specs: ["Identificação gravata dourada para as grades do Celta e Corsa 2000 a 2008"] },
+    { cat: 'acessorios', nome: "Emblema Grade Palio Azul", fotos: ["src/fundoNovo/emblemagradePalio01Azul1.png", "src/fundoNovo/emblemagradePalio01Azul2.png"], specs: ["Identificação para Palio 2004 em diante, Uno flex 2005 em diante e Fiorino 2005 em diante", "Cromado com azul"] },
+    { cat: 'acessorios', nome: "Emblema da Mala Fiat", fotos: ["src/fundoNovo/emblemap.MalaFiatAzul.png"], specs: ["Identificação da mala do Fiat Palio 2001 a 2007"] },
+    { cat: 'acessorios', nome: "Emblema Fire da Fiat", fotos: ["src/fundoNovo/emblemaPalioFire.png"], specs: ["Identificação para Modelos Strada e Palio Fire dos anos 2001 a 2006", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Central para Calotas Chevrolet", fotos: ["src/fundoNovo/emblemap.CalotaChevrolet.png"], specs: ["Kit com 4 unidades adesivas" , "Modelo gravata Dourada e Cromada"] },
+    { cat: 'acessorios', nome: "Emblema Central para Calotas Fiat", fotos: ["src/fundoNovo/emblemap.CalotaFiatPreto.png" ,"src/fundoNovo/emblemap.CalotaFiatVermelho.png"], specs: ["Kit com 4 unidades adesivas", "Modelo Preto, Vermelho e azul"] },
+    { cat: 'acessorios', nome: "Emblema Central para Calotas VW", fotos: ["src/fundoNovo/emblemap.CalotaVolksvagem.png"], specs: ["kit com 4 unidades da logo VW Clássico", "Resinado"] },
+    { cat: 'acessorios', nome: "Calota de Centro Roda Volkswagem", fotos: ["src/fundoNovo/calotaCentroRodaOrbitalVW.png"], specs: ["Calota Central Gol, Voyage e Parati 2014, 2015", "Prata"] },
+    { cat: 'acessorios', nome: "Emblema Fiat da Grade", fotos: ["src/fundoNovo/emblemaGradeUnoVermelhoeCromado.png"], specs: ["Identificação para modelos Fiat 500, Idea, Linea, Novo Uno, Palio Weekend e Siena", "Cromado"] },
+    { cat: 'acessorios', nome: "Emblema Gravata Chevrolet", fotos: ["src/fundoNovo/emblemaGradeGorsaBlackPiano1.png", "src/fundoNovo/emblemaGradeGorsaBlackPiano2.png"], specs: ["Identificação em Black Piano do Corsa Classic e do Vectra ano 2009 em diante"] },
+    
+    
+    // --- Shopping ---
+    { cat: 'shopping', nome: "Carrinho esteira para Mecânico", fotos: ["src/fundoNovo/carrinhomecanico.png"], specs: ["Carrinho com rodinhas e encosto, suporta até 120KG"] },
+    { cat: 'shopping', nome: "Mini Compressor de ar digital", fotos: ["src/fundoNovo/compressorsdeAr.png", "src/fundoNovo/compressorsdeAr2.png"], specs: [ "Aplicação: Bomba Elétrica para calibrar pneu 12V","Alta Performance, funcionamento sem foi e recarregável via USB, display digital de alta precisão", "Pressão máxima de 150PSI para inflar pneus"] },
+
+    // --- GRADES ---
+
+    // --- ILUMINAÇÃO ---
+    { cat: 'iluminacao', nome: "Farol Agile/Montana 2009", fotos: ["src/fundoNovo/farolagilemontada09emdiantecromado01.png", "src/fundoNovo/farolagilemontada09emdiantecromado02.png"], specs: ["Farol compatível com Agile e Montana 2009 a 2020", "Acabamento em lente de acrílico e Máscara Cromado", "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Farol Celta/Prisma 2007", fotos: ["src/fundoNovo/farolceltaprisma2007emdiantecromado.png", "src/fundoNovo/farolceltaprisma2007emdiantecromado2.png"], specs: ["Farol compatível com Chevrolet Celta e Prisma 2007 a 2015", "Acabamento em Máscara Cromada" , "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Farol Cobalt 2012", fotos: ["src/fundoNovo/farol cobalt 2012 em diante cromado.png", "src/fundoNovo/farol cobalt 2012 em diante cromado2.png"], specs: ["Farol do Cobalt 2012 a 2016", "Máscara Cromada" , "Marcas Originais, como Arteb e Paralelos" ] },
+    { cat: 'iluminacao', nome: "Farol Celta 2001", fotos: ["src/fundoNovo/farolCelta01...emdianteCromado.png", "src/fundoNovo/farolCelta01...emdianteCromado (2).png"], specs: ["Farol do Celta 2001 a 2006", "Foco Simples e Máscara Cromada", "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Farol Gol GIII Foco Simples", fotos: ["src/fundoNovo/farolgolsaveiroparati99emdianteG3focosimplescromado.png", "src/fundoNovo/farolgolsaveiroparati99emdianteG3focosimplescromado2.png" ], specs: ["Farol compatível com o Gol, Parati e Saveiro GIII dos anos 1999 a 2006", "Máscara Cromada", "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Farol Gol GV", fotos: ["src/fundoNovo/farolgolvoyagesaveiro08emdianteG5focosimplescromado.png", "src/fundoNovo/farolgolvoyagesaveiro08emdianteG5focosimplescromado2.png" ], specs: ["Farol compatível com o Volkswagem Gol, Voyage e Saveiro GV dos anos 2008 a 2012", "Máscara Cromada e Foco Simples", "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Farol Fiat Palio 2004", fotos: ["src/fundoNovo/farolpaliostradasienaweekend04G3Cromadocanhaopreto.png", "src/fundoNovo/farolpaliostradasienaweekend04G3Cromadocanhaopreto2.png", "src/fundoNovo/farolpaliostradasienaweekend04G3Cromadocanhaopreto3.png"], specs: ["Farol compatível ao Palio GIII ou mais conhecido como Sapão, Strada, Siena 2004 a 2016", "Modelo máscara cromada com canhão preto", "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Farol Palio 1996", fotos: ["src/fundoNovo/farol palio-siena-strada-weekend 96... foco simples cromado.png", "src/fundoNovo/farol palio-siena-strada-weekend 96... foco simples cromado2.png"], specs: ["Farol compatível com o Fiat Palio 1995 a 2000", "Foco Simples", "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Farol Corsa 2000", fotos: ["src/fundoNovo/farolCorsa00emdianteLenteLisaCromado.png", "src/fundoNovo/farolCorsa00emdianteLenteLisaCromado2.png"], specs: ["Farol compatível com o Corsa GM 2000 a 2010", "Máscara Cromada, Lente Lisa", "Marcas Originais, como Arteb e Paralelos"] },
+    { cat: 'iluminacao', nome: "Lanterna Celta 2007", fotos: ["src/fundoNovo/lanterna traseira celta 06... em diante bicolor.png", "src/fundoNovo/lanterna traseira celta 06... em diante bicolor2.png"], specs: ["Lanterna Traseira do Celta 2007 a 2015", "Modelo Bicolor, Lente Acrílica", "Marca Cofran" ] },
+    { cat: 'iluminacao', nome: "Lanterna Gol GV", fotos: ["src/fundoNovo/lanterna traseira gol 08... G5 bicolor.png", "src/fundoNovo/lanterna traseira gol 08... G5 bicolor2.png"], specs: ["Lanterna Traseira do VW Gol GV 2008 a 2013", "Bicolor", "Marca Cofran"] },
+    { cat: 'iluminacao', nome: "Lanterna Prisma 2013", fotos: ["src/fundoNovo/lanterna traseira prisma 2013... em diante bicolor.png"], specs: ["Lanterna Traseira do Chevrolet Prisma 2013 a 2019", "Modelo Bicolor", "Marca Cofran" ] },
+    { cat: 'iluminacao', nome: "Lanterna Corsa 2000", fotos: ["src/fundoNovo/lanternaraseiraCorsa00bolha4portasBicolor.png", "src/fundoNovo/lanternaraseiraCorsa00bolha4portasBicolor2.png"], specs: ["Lanterna Traseira do Corsa 2000 a 2003 e Corsa Classic 2003 a 2010", "Modelo Bolha", "Marca Cofran"] },
+    { cat: 'iluminacao', nome: "Lanterna Onix Hatch", fotos: ["src/fundoNovo/lanternaTraseiraOnix17a20bicolorHatch.png", "src/fundoNovo/lanternaTraseiraOnix17a20bicolorHatch2.png"], specs: ["Lanterna Traseira do Onix Modelo Hatch 2017 a 2019 e Joy 2020 a 2022", "Bicolor", "Marca Cofran"] },
+    { cat: 'iluminacao', nome: "Lanterna Palio GIII", fotos: ["src/fundoNovo/lanternaTraseiraPalio04emDianteG3Tricolor.png", "src/fundoNovo/lanternaTraseiraPalio04emDianteG3Tricolor2.png"], specs: ["Lanterna traseira do Palio 2004 a 2008", "Modelo Tricolor", "Marca Cofran"] },
+    { cat: 'iluminacao', nome: "Lâmpada Super Branca H1 AUTOVEX", fotos: ["src/fundoNovo/lampadah1superBranca.png"], specs: ["Iluminação Branca", "Possuímos os modelos: H1, H3, H7, H8, H11, H13, H16, HB3 e HB4"] },
+    { cat: 'iluminacao', nome: "Lâmpada Super Branca H3 ROTA", fotos: ["src/fundoNovo/lampadah3superbranca.png"], specs: ["Iluminação Super Branca", "Possuímos os modelos: H1, H3, H7, H8, H11, H13, H16, HB3 e HB4"] },
+    { cat: 'iluminacao', nome: "Lâmpada Super Branca H4 Tiger Auto", fotos: ["src/fundoNovo/lampadah4superBranca0.png", "src/fundoNovo/lampada1.png", "src/fundoNovo/lampada1 (2).png"], specs: ["Iluminação Branca", "Possuímos os modelos: H1, H3, H7, H8, H11, H13, H16, HB3 e HB4"] },
+    { cat: 'iluminacao', nome: "Lâmpada Super Branca H27", fotos: ["src/fundoNovo/h27superbranca0.png", "src/fundoNovo/h27superbranca1.png"], specs: ["Iluminação Super Branca" , "-"] },
+    { cat: 'iluminacao', nome: "Lâmpada Torpedo Comum", fotos: ["src/fundoNovo/torpedocomum.png", "src/fundoNovo/torpedoled.png"], specs: ["Iluminação amarela nos tamanhos de 36mm a 42mm e possuímos dos mesmos modelos com luminosidade em LED", "Apicável a lanternas de placa e lanternas internas, como de teto"] },
+    { cat: 'iluminacao', nome: "Lâmpada Torpedo de LED", fotos: ["src/fundoNovo/torpedoled6000k.png"], specs: ["Iluminação BRANCA de potência 6000k nos tamanhos de 36mm a 42mm", "Apicável a lanternas de placa e lanternas internas, como de teto"] },
+    { cat: 'iluminacao', nome: "Lâmpada LED 2 Polos", fotos: ["src/fundoNovo/lampada2PolosLed.png", "src/fundoNovo/lampada2PolosLed2.png"], specs: ["Lâmpada de led em várias variações, como Pinguinho, Pingão, Lâmpada 69 e 67, 1 e 2 Polos"] },
+    { cat: 'iluminacao', nome: "Lâmpadas Super LED", fotos: ["src/fundoNovo/superled1.png", "src/fundoNovo/superled2.png"], specs: ["Lâmpadas LED para Farol, modelos: H1, H3, H7, H8, H11, H13, H16, HB3 e HB4", "Possui cooler acoplado para resfriamento"] },
+    { cat: 'iluminacao', nome: "Lâmpada LED com encaixe Comum", fotos: ["src/fundoNovo/lampadaled.png"], specs: ["Lâmpadas LED para Farol, modelos: H1, H3, H7, H8, H11, H13, H16, HB3 e HB4", "Possui encaixe COMUM, facilita a troca e reposições"] },
+    { cat: 'iluminacao', nome: "Lâmpada Ultra LED", fotos: ["src/fundoNovo/ultraLed1.png", "src/fundoNovo/ultraLed2.png","src/fundoNovo/led1.png", "src/fundoNovo/led2.png"], specs: ["Lâmpadas LED para Farol, modelos: H1, H3, H7, H8, H11, H13, H16, HB3 e HB4", "Possui cooler acoplado para resfriamento"] },
+    { cat: 'iluminacao', nome: "Lâmpada Led 2 Polos com Cambus", fotos: ["src/fundoNovo/lampada2.png", "src/fundoNovo/lampada1.png"], specs: ["Lâmpadas LED 2 Polos com Cambus, ideal para carros com comando de bordo (aquele sistema em que pode apresentar facilmente que uma lâmpada Led está queimada, mesmo sem estar)"] },
+
+    // --- LATARIA ---
+    { cat: 'lataria', nome: "Painel Frontal Argo/Cronos 2018", fotos: ["src/fundoNovo/painelArgo1.png", "src/fundoNovo/painelArgo2.png"], specs: ["Painel Frontal ou Painel Superior dianteiro compatível com Fiat Argo e Cronos 2017 a 2024", "Marca: Ponteira Rodrigues"] },
+    { cat: 'lataria', nome: "Paralama Onix Active", fotos: ["src/fundoNovo/paralamaOnix.png"], specs: ["Paralama GM Onix Active 2017 a 2019", "Marca: Ponteira Rodrigues"] },
+    { cat: 'lataria', nome: "Capô Agile 2009", fotos: ["src/fundoNovo/capog6.png","src/fundoNovo/capog62.png"], specs: ["Capô do Agile e Montana compativel com os anos 2009 a 2015", "Marca: Ponteira Rodrigues"] }
+];
+
+
+       const storeNumbers = {
+            aguas: "https://api.whatsapp.com/message/FS5GMEPGEON7N1",
+            santo: "https://api.whatsapp.com/send/?phone=6130464701",
+            gama: "https://api.whatsapp.com/message/LVSAA3BU23OHI1"
+        };
+
+        function renderizar(lista) {
+            const grid = document.getElementById('grid-produtos');
+            grid.innerHTML = lista.map((p) => {
+                const safeId = p.nome.replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+                return `
+                <div class="bg-cinza-escuro rounded-xl overflow-hidden shadow-lg flex flex-col h-full text-left group border border-transparent hover:border-dourado transition-all">
+                    <div class="h-64 bg-white flex items-center justify-center p-4 relative group/img">
+                        ${p.fotos.length > 1 ? `
+                            <button onclick="mudarFoto('${p.nome}', -1, '${safeId}')" class="absolute left-2 z-10 bg-black/20 hover:bg-dourado text-white p-2 rounded-full opacity-0 group-hover/img:opacity-100 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                            </button>
+                            <button onclick="mudarFoto('${p.nome}', 1, '${safeId}')" class="absolute right-2 z-10 bg-black/20 hover:bg-dourado text-white p-2 rounded-full opacity-0 group-hover/img:opacity-100 transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                            </button>
+                        ` : ''}
+                        <img id="img-${safeId}" src="${p.fotos[0]}" data-index="0" class="max-h-full max-w-full object-contain transition-transform duration-500">
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="font-bold text-lg mb-3 text-white leading-tight">${p.nome}</h3>
+                        <ul class="text-cinza-texto text-xs mb-6 space-y-1 flex-grow">
+                            ${p.specs.map(s => `<li>• ${s}</li>`).join('')}
+                        </ul>
+                        <p class="text-xl font-bold text-dourado mb-4">Orçar Valor</p>
+                        <button onclick="abrirModalSelecao('${p.nome}')" class="bg-dourado text-black py-3 rounded-lg font-bold hover:bg-dourado-hover transition-colors w-full uppercase text-xs tracking-widest">
+                            Ver Disponibilidade
+                        </button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function mudarFoto(nomeProduto, direcao, safeId) {
+            const imgElement = document.getElementById(`img-${safeId}`);
+            const produto = todosProdutos.find(p => p.nome === nomeProduto);
+            if (!produto) return;
+            let currentFotoIdx = parseInt(imgElement.getAttribute('data-index'));
+            currentFotoIdx += direcao;
+            if (currentFotoIdx >= produto.fotos.length) currentFotoIdx = 0;
+            if (currentFotoIdx < 0) currentFotoIdx = produto.fotos.length - 1;
+            imgElement.src = produto.fotos[currentFotoIdx];
+            imgElement.setAttribute('data-index', currentFotoIdx);
+        }
+
+        function abrirModalSelecao(produto = "") {
+            const msg = encodeURIComponent(`Olá! Tenho interesse no produto: ${produto}. Gostaria de orçar o valor.`);
+            document.getElementById('link-aguas').href = `${storeNumbers.aguas}?text=${msg}`;
+            document.getElementById('link-santo').href = `${storeNumbers.santo}&text=${msg}`;
+            document.getElementById('link-gama').href = `${storeNumbers.gama}?text=${msg}`;
+            document.getElementById('whatsapp-modal').classList.remove('hidden');
+        }
+
+        function fecharModal() { document.getElementById('whatsapp-modal').classList.add('hidden'); }
+
+        function filtrar(categoria) {
+            const tituloPagina = document.getElementById('titulo-pagina');
+            const titulos = {
+                'todos': 'Tudo que você <span class="text-dourado">Precisa</span>',
+                'iluminacao': 'Sistemas de <span class="text-dourado">Iluminação</span>',
+                'lataria': 'Peças de <span class="text-dourado">Lataria</span>',
+                'acessorios': 'Acessórios <span class="text-dourado">Exclusivos</span>',
+                'grades': 'Para-choques e <span class="text-dourado">Grades</span>',
+                'acessorios': 'Itens de <span class="text-dourado">acessorios</span>',
+                'mecanica': 'Peças de <span class="text-dourado">Mecânica</span>'
+            };
+
+            if (tituloPagina && titulos[categoria]) {
+                tituloPagina.innerHTML = titulos[categoria];
+            }
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                const isTarget = btn.getAttribute('data-cat') === categoria;
+                btn.className = isTarget 
+                    ? "filter-btn bg-dourado text-black px-5 py-2 rounded-full font-bold transition-all text-sm"
+                    : "filter-btn bg-cinza-escuro text-white px-5 py-2 rounded-full transition-all text-sm";
+            });
+
+            if(categoria === 'todos') { renderizar(todosProdutos); } 
+            else { renderizar(todosProdutos.filter(p => p.cat === categoria)); }
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        window.onload = () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const categoriaUrl = urlParams.get('cat') || 'todos';
+            filtrar(categoriaUrl);
+        };
+    </script>
+</body>
+</html>

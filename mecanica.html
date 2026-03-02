@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mecânica e Peças - Império Shopping Car</title>
+    <meta name="description" content="Tudo para a mecânica do seu carro: kits de embreagem, freios, suspensão e muito mais.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dourado': '#D4AF37',
+                        'dourado-hover': '#EACD69',
+                        'cinza-escuro': '#1A1A1A',
+                        'cinza-texto': '#A9A9A9',
+                    },
+                    fontFamily: {
+                        'poppins': ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos do Modal */
+        #whatsapp-modal.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-black text-white font-poppins">
+
+    <header class="bg-black/80 backdrop-blur-sm fixed top-0 left-0 w-full z-50 transition-transform duration-300">
+        <div class="container mx-auto px-6 py-3 grid grid-cols-3 items-center">
+            <div class="justify-self-start">
+                <a href="index.html" class="focus:outline-none p-2" aria-label="Voltar para a página inicial">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-dourado" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="justify-self-center">
+                <a href="index.html">
+                    <img src="src/logo.png" alt="Império Shopping Car Logo" class="h-12 w-auto" onerror="this.onerror=null;this.src='https://placehold.co/200x50/1A1A1A/D4AF37?text=Sua+Logo';">
+                </a>
+            </div>
+
+            <div class="justify-self-end">
+                <button id="header-contact-btn" type="button" class="bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-transform duration-300 hover:scale-105 text-sm">
+                    Fale Conosco
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero-mecanica" class="py-24 bg-cinza-escuro pt-40">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-2">Mecânica e <span class="text-dourado">Performance</span></h1>
+                <p class="text-lg text-cinza-texto">O coração e a força que seu carro precisa. Peças de reposição com qualidade garantida.</p>
+            </div>
+        </section>
+
+         <section class="py-20">
+            <div class="container mx-auto px-6">
+                
+                <h2 class="text-3xl font-bold text-dourado mb-12 text-center">Peças de Suspensão, Câmbio e Elétrica</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    
+                    <div class="bg-cinza-escuro rounded-lg overflow-hidden shadow-lg flex flex-col">
+                        <div class="h-56 overflow-hidden"><img src="https://placehold.co/400x400/1A1A1A/D4AF37?text=Sua+Foto+Aqui" alt="Chicotes Elétricos" class="w-full h-full object-cover"></div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Chicotes Elétricos</h3>
+                            <p class="text-cinza-texto mb-4 text-sm flex-grow">Chicotes elétricos para diversas partes do veículo. Soluções completas para reparos elétricos.</p>
+                            <p class="text-xl font-bold text-dourado mb-4">Preço sob consulta</p>
+                            <button class="whatsapp-btn mt-auto w-full bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-colors" data-produto="Chicotes Elétricos" data-preco="Sob consulta">Consultar via WhatsApp</button>
+                        </div>
+                    </div>
+                    <div class="bg-cinza-escuro rounded-lg overflow-hidden shadow-lg flex flex-col">
+                        <div class="h-56 overflow-hidden"><img src="https://placehold.co/400x400/1A1A1A/D4AF37?text=Sua+Foto+Aqui" alt="Pivô de Suspensão Gol 08" class="w-full h-full object-cover"></div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Pivô de Suspensão Gol 08</h3>
+                            <p class="text-cinza-texto mb-4 text-sm flex-grow">Pivô da bandeja de suspensão para VW Gol 2008. Peça fundamental para a segurança e estabilidade da direção.</p>
+                            <p class="text-xl font-bold text-dourado mb-4">Preço sob consulta</p>
+                            <button class="whatsapp-btn mt-auto w-full bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-colors" data-produto="Pivô de Suspensão Gol 08" data-preco="Sob consulta">Consultar via WhatsApp</button>
+                        </div>
+                    </div>
+                    <div class="bg-cinza-escuro rounded-lg overflow-hidden shadow-lg flex flex-col">
+                        <div class="h-56 overflow-hidden"><img src="https://placehold.co/400x400/1A1A1A/D4AF37?text=Sua+Foto+Aqui" alt="Bieleta Dianteira Fiesta 02" class="w-full h-full object-cover"></div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Bieleta Dianteira Fiesta 02</h3>
+                            <p class="text-cinza-texto mb-4 text-sm flex-grow">Componente essencial para a estabilidade da suspensão do seu Ford Fiesta 2002. Garanta segurança e dirigibilidade.</p>
+                            <p class="text-xl font-bold text-dourado mb-4">Preço sob consulta</p>
+                            <button class="whatsapp-btn mt-auto w-full bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-colors" data-produto="Bieleta Dianteira Fiesta 02" data-preco="Sob consulta">Consultar via WhatsApp</button>
+                        </div>
+                    </div>
+                    <div class="bg-cinza-escuro rounded-lg overflow-hidden shadow-lg flex flex-col">
+                        <div class="h-56 overflow-hidden"><img src="https://placehold.co/400x400/1A1A1A/D4AF37?text=Sua+Foto+Aqui" alt="Bieleta Dianteira Peugeot 206" class="w-full h-full object-cover"></div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Bieleta Dianteira Peugeot 206</h3>
+                            <p class="text-cinza-texto mb-4 text-sm flex-grow">Peça de reposição para a suspensão dianteira do Peugeot 206. Reduz a inclinação da carroceria em curvas.</p>
+                            <p class="text-xl font-bold text-dourado mb-4">Preço sob consulta</p>
+                            <button class="whatsapp-btn mt-auto w-full bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-colors" data-produto="Bieleta Dianteira Peugeot 206" data-preco="Sob consulta">Consultar via WhatsApp</button>
+                        </div>
+                    </div>
+                    <div class="bg-cinza-escuro rounded-lg overflow-hidden shadow-lg flex flex-col">
+                        <div class="h-56 overflow-hidden"><img src="https://placehold.co/400x400/1A1A1A/D4AF37?text=Sua+Foto+Aqui" alt="Bieleta Dianteira Onix" class="w-full h-full object-cover"></div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Bieleta Dianteira Onix</h3>
+                            <p class="text-cinza-texto mb-4 text-sm flex-grow">Bieleta da barra estabilizadora para Chevrolet Onix. Qualidade e durabilidade para a suspensão do seu carro.</p>
+                            <p class="text-xl font-bold text-dourado mb-4">Preço sob consulta</p>
+                            <button class="whatsapp-btn mt-auto w-full bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-colors" data-produto="Bieleta Dianteira Onix" data-preco="Sob consulta">Consultar via WhatsApp</button>
+                        </div>
+                    </div>
+                    <div class="bg-cinza-escuro rounded-lg overflow-hidden shadow-lg flex flex-col">
+                        <div class="h-56 overflow-hidden"><img src="https://placehold.co/400x400/1A1A1A/D4AF37?text=Sua+Foto+Aqui" alt="Morcegão Suspensão Corsa" class="w-full h-full object-cover"></div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Morcegão Suspensão Corsa</h3>
+                            <p class="text-cinza-texto mb-4 text-sm flex-grow">Suporte da barra tensora (morcegão) para Corsa (98/15). Corrige problemas de alinhamento e barulhos na suspensão.</p>
+                            <p class="text-xl font-bold text-dourado mb-4">Preço sob consulta</p>
+                            <button class="whatsapp-btn mt-auto w-full bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-colors" data-produto="Morcegão Suspensão Corsa 98/15" data-preco="Sob consulta">Consultar via WhatsApp</button>
+                        </div>
+                    </div>
+                    <div class="bg-cinza-escuro rounded-lg overflow-hidden shadow-lg flex flex-col">
+                        <div class="h-56 overflow-hidden"><img src="https://placehold.co/400x400/1A1A1A/D4AF37?text=Sua+Foto+Aqui" alt="Reparo Alavanca Câmbio Gol" class="w-full h-full object-cover"></div>
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-bold mb-2">Reparo Alavanca Câmbio Gol</h3>
+                            <p class="text-cinza-texto mb-4 text-sm flex-grow">Kit de reparo parcial com bucha para a alavanca de câmbio do Gol 2008. Acabe com a folga na troca de marchas.</p>
+                            <p class="text-xl font-bold text-dourado mb-4">Preço sob consulta</p>
+                            <button class="whatsapp-btn mt-auto w-full bg-dourado text-black font-bold py-2 px-5 rounded-lg hover:bg-dourado-hover transition-colors" data-produto="Reparo Alavanca Câmbio Gol 08" data-preco="Sob consulta">Consultar via WhatsApp</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contato-rodape" class="bg-cinza-escuro pt-16 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+                <div>
+                    <h3 class="text-xl font-bold text-dourado mb-4">Império Shopping Car</h3>
+                    <p class="text-cinza-texto">Elevando o padrão dos acessórios automotivos no Brasil. Qualidade e exclusividade que você sente ao dirigir.</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Links Úteis</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#sobre" class="text-cinza-texto hover:text-dourado">Sobre Nós</a></li>
+                        <li><a href="index.html#personalizador" class="text-cinza-texto hover:text-dourado">Personalizador</a></li>
+                        <li><a href="index.html#categorias" class="text-cinza-texto hover:text-dourado">Categorias</a></li>
+                        <li><a href="#" class="text-cinza-texto hover:text-dourado">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Nossas Lojas</h3>
+                    <ul class="space-y-2 text-cinza-texto">
+                        <li><p>Águas Lindas - GO</p></li>
+                        <li><p>Santo Antônio - GO</p></li>
+                        <li><p>Gama - DF</p></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-white mb-4">Contato & Redes</h3>
+                    <ul class="space-y-2 text-cinza-texto mb-4">
+                        <li class="flex items-center">
+                            <svg class="w-5 h-5 mr-2 text-dourado" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span>imperioshoppingcaracessorios@gmail.com</span>
+                        </li>
+                    </ul>
+                     <div class="flex space-x-4">
+                         <a href="#" class="text-cinza-texto hover:text-dourado"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" ><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.058 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.28-.059-1.688-.073-4.947-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
+                         <a href="#" class="text-cinza-texto hover:text-dourado"><svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.494v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.046c.732 0 1.325-.593 1.325-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 flex justify-between items-center text-cinza-texto text-sm">
+                <p class="text-center w-full md:w-auto md:text-left">&copy; 2025 Império Shopping Car. Todos os direitos reservados.</p>
+                <p class="hidden md:block">Desenvolvido por <a href="#" class="text-dourado hover:underline">CyLevel</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <div id="whatsapp-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+        <div class="bg-cinza-escuro p-8 rounded-lg shadow-2xl w-full max-w-md text-center">
+            <h3 class="text-2xl font-bold text-white mb-4">Falar com qual loja?</h3>
+            <p class="text-cinza-texto mb-6">Selecione uma de nossas lojas para fazer seu orçamento via WhatsApp.</p>
+            <div class="space-y-4">
+                <a id="whatsapp-aguas-lindas" href="#" target="_blank" class="block w-full bg-dourado text-black font-bold py-3 px-5 rounded-lg hover:bg-dourado-hover transition-colors">Águas Lindas</a>
+                <a id="whatsapp-santo-antonio" href="#" target="_blank" class="block w-full bg-dourado text-black font-bold py-3 px-5 rounded-lg hover:bg-dourado-hover transition-colors">Santo Antônio do Descoberto</a>
+                <a id="whatsapp-gama" href="#" target="_blank" class="block w-full bg-dourado text-black font-bold py-3 px-5 rounded-lg hover:bg-dourado-hover transition-colors">Gama</a>
+            </div>
+            <button id="modal-close-btn" class="mt-8 text-cinza-texto hover:text-white transition-colors">Fechar</button>
+        </div>
+    </div>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- LÓGICA DO CABEÇALHO ---
+        const header = document.querySelector('header');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 150) {
+                header.classList.add('-translate-y-full');
+            } else {
+                header.classList.remove('-translate-y-full');
+            }
+            lastScrollY = window.scrollY;
+        });
+        
+        // --- LÓGICA DO MODAL DE WHATSAPP ---
+        const whatsappModal = document.getElementById('whatsapp-modal');
+        const modalCloseBtn = document.getElementById('modal-close-btn');
+        const headerContactBtn = document.getElementById('header-contact-btn');
+        
+        const whatsappLinks = {
+            aguasLindas: document.getElementById('whatsapp-aguas-lindas'),
+            santoAntonio: document.getElementById('whatsapp-santo-antonio'),
+            gama: document.getElementById('whatsapp-gama')
+        };
+
+        const storeNumbers = {
+            aguasLindas: "https://api.whatsapp.com/message/FS5GMEPGEON7N1?autoload=1&app_absent=0",
+            santoAntonio: "https://api.whatsapp.com/send/?phone=6130464701&type=phone_number&app_absent=0",
+            gama: "https://api.whatsapp.com/message/LVSAA3BU23OHI1?autoload=1&app_absent=0"
+        };
+
+        function openWhatsappModal(message) {
+            const defaultMessage = "Olá! Gostaria de fazer um orçamento.";
+            const finalMessage = message || defaultMessage;
+
+            whatsappLinks.aguasLindas.href = `${storeNumbers.aguasLindas}&text=${encodeURIComponent(finalMessage)}`;
+            whatsappLinks.santoAntonio.href = `https://api.whatsapp.com/send/?phone=6130464701&text=${encodeURIComponent(finalMessage)}&type=phone_number&app_absent=0`;
+            whatsappLinks.gama.href = `${storeNumbers.gama}&text=${encodeURIComponent(finalMessage)}`;
+            
+            whatsappModal.classList.remove('hidden');
+        }
+
+        document.querySelectorAll('.whatsapp-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const produto = button.dataset.produto;
+                const preco = button.dataset.preco;
+                const message = `Olá! Tenho interesse no produto: ${produto} (${preco}).`;
+                openWhatsappModal(message);
+            });
+        });
+
+        if (headerContactBtn) {
+            headerContactBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openWhatsappModal(null);
+            });
+        }
+
+        if (modalCloseBtn) {
+            modalCloseBtn.addEventListener('click', () => {
+                whatsappModal.classList.add('hidden');
+            });
+        }
+
+        if (whatsappModal) {
+             whatsappModal.addEventListener('click', (e) => {
+                 if (e.target === whatsappModal) {
+                     whatsappModal.classList.add('hidden');
+                 }
+             });
+        }
+    });
+</script>
+
+</body>
+</html>
